@@ -1,0 +1,380 @@
+* {
+  font-family: "Founders Grotesk", Helvetica, Arial, sans-serif, "黑體-繁",
+    "微軟正黑體", sans-serif;
+  outline: none !important;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: calc(14px + (22 - 14) * ((100vw - 300px) / (1600 - 300)));
+}
+.loadingTime {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.router-link-exact-active {
+  color: rgba(65, 65, 65) !important;
+  text-shadow: 0 0 6px rgba(65, 65, 65, 0.4);
+}
+
+.container-fluid {
+  height: 100vh;
+}
+
+.container-fluid > div {
+  height: 100%;
+}
+
+.bookcontainer {
+  max-width: 30%;
+  min-width: 270px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.book {
+  width: 80%;
+  max-width: 400px;
+}
+
+.bookmark {
+  position: absolute;
+  left: 33%;
+  top: 10%;
+  /* transform: translateX(-50%); */
+  display: flex;
+}
+
+.bookmark-circle {
+  font-weight: 700;
+  height: 40px;
+  width: 40px;
+  border: 2px solid #000;
+  border-radius: 30px;
+  text-align: center;
+  line-height: 38px;
+}
+
+.bookmark-text {
+  font-weight: 700;
+  margin-left: 15px;
+  height: 40px;
+  line-height: 40px;
+  font-size: calc(14px + (16 - 12) * ((100vw - 300px) / (1600 - 300)));
+}
+
+.watchmark {
+  z-index: -1;
+  position: absolute;
+  left: 50%;
+  top: 75%;
+  transform: translate(-50%, -50%);
+  color: #e4e4e4;
+  font-weight: 500;
+  -webkit-text-stroke-width: 1.5px;
+  -webkit-text-fill-color: transparent;
+  opacity: 1;
+  font-size: calc(220px + 40 * (100vw - 1024px) / 416);
+  line-height: calc(220px + 40 * (100vw - 1024px) / 416);
+}
+
+.navbar {
+  max-width: 28.6%;
+  min-width: 270px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
+
+.navbar ul {
+  width: 100%;
+  text-align: center;
+  padding: 0;
+  list-style: none;
+  padding-bottom: 100px;
+}
+
+.navbar li {
+  padding: 14px 0;
+}
+
+.navbar li a {
+  /* font-size: calc(1vw + 10px); */
+  display: block;
+  color: rgba(65, 65, 65, 0.5);
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.navbar li a:hover {
+  color: rgba(65, 65, 65);
+  transform: translateX(10px);
+}
+
+.Home {
+  width: 70%;
+}
+
+.showoff {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+}
+
+.showoff h1 {
+  /* font-size: calc(2vw + 16px); */
+  margin-bottom: 20px;
+}
+
+.showoff span {
+  /* font-size: calc(1vw + 8px); */
+  line-height: 48px;
+}
+
+.introduction {
+  display: none;
+}
+
+/* translate */
+
+.translatebox .inputbox {
+  height: 42%;
+  padding-top: 10%;
+}
+
+.outputbox textarea,
+.inputbox textarea {
+  height: 100%;
+  text-align: center;
+  width: 100%;
+  border: none;
+  background: rgb(252, 252, 252);
+  resize: none;
+  overflow-x: hidden;
+}
+
+.outputbox textarea {
+  border-top: 0.5px solid #eee;
+  padding-top: 20px;
+}
+
+.translatebox .outputbox {
+  height: 42%;
+}
+
+.exchangebox,
+.searchbox {
+  text-align: center;
+  height: 6%;
+}
+
+.exchangebox button {
+  border: none;
+  background: none;
+  transform: rotate(90deg);
+}
+
+.exchangebox span {
+  font-size: calc(12px + (16 - 12) * ((100vw - 300px) / (1600 - 300)));
+}
+
+.exchangebox i {
+  color: #b0b0b0;
+  transform: rotate(90deg);
+  font-size: 14px;
+}
+
+.closeBtn {
+  top: 10%;
+  right: 0;
+  margin-right: 10px;
+  outline: none;
+  position: absolute;
+  border: none;
+  background: none;
+  color: #9c9c9c;
+}
+
+.searchbox button {
+  border-radius: 5px;
+  background-color: #0984e3;
+  color: #fff;
+  border: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  outline: none;
+}
+
+.searchbox i {
+  font-size: 14px;
+  padding-right: 5px;
+}
+
+.micbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 10%;
+}
+
+.micbox button {
+  background: none;
+  border: none;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  outline: none;
+}
+
+.micStart {
+  color: #0984e3;
+}
+
+.micStop {
+  color: #ff0000;
+}
+
+/* vocabulary */
+
+.inputbox {
+  position: relative;
+}
+
+.vocabularybox .inputbox {
+  padding-top: 10%;
+}
+
+.vocabularybox .outputbox {
+  overflow-y: scroll;
+  overflow-x: scroll;
+  height: 75%;
+  padding: 15px;
+}
+
+.vocabularyOutput {
+  color: #484848;
+  padding-bottom: 10px;
+  border-bottom: 0.5px solid #e4e4e4;
+}
+
+.vocabularyOutput h4,
+.vocabularyOutput h5 {
+  font-weight: 700;
+}
+
+.vocabularyOutput h5,
+.vocabularyOutput h6 {
+  font-style: italic;
+}
+
+.vocabularyOutput .level,
+.otherPOS h4 {
+  margin: 20px 0 8px 0;
+}
+.otherPOS span {
+  font-size: 14px;
+  width: 50px;
+  padding: 0 6px;
+  color: #fff;
+  text-align: center;
+  background-color: rgb(37, 53, 100);
+  border-radius: 50px;
+}
+.otherPOS span {
+  font-size: 16px;
+  width: auto;
+  line-height: inherit;
+  display: inline-block;
+  color: #fff;
+  border-radius: 50px;
+  padding: 3px 8px;
+  margin: 4px;
+  background-color: #0984e3;
+}
+.otherPOS .explanation {
+  border-bottom: 1px solid #ddd;
+  padding: 12px 4px;
+}
+/* Sentence */
+
+.prompt {
+  width: 80%;
+  max-width: 1000px;
+  min-width: 390px;
+  margin: 15px 60px 0 30px;
+  text-align: right;
+}
+
+.prompt p {
+  margin-bottom: 10px;
+  display: inline-block;
+}
+
+.SentenceBtnBar {
+  width: 80%;
+  max-width: 1000px;
+  min-width: 390px;
+  padding: 10px;
+  margin: 15px 60px 0 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.SentenceBtnBar button {
+  outline: none;
+  background: none;
+  border: none;
+  margin: 0 20px;
+}
+
+.SentenceBtnBar button i {
+  font-size: calc(30px + (22 - 14) * ((100vw - 300px) / (1600 - 300)));
+}
+
+.SentenceBtnBar p {
+  margin: 0;
+  height: calc(30px + (22 - 14) * ((100vw - 300px) / (1600 - 300)));
+  line-height: calc(30px + (22 - 14) * ((100vw - 300px) / (1600 - 300)));
+}
+
+.sentence {
+  cursor: pointer;
+  padding: 0 10px;
+  display: flex;
+  height: 100%;
+  /* margin: 10%; */
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.sentence h4 {
+  padding: 10px;
+}
+
+.SpeakerBtn {
+  cursor: pointer;
+  align-items: flex-end;
+  color: #000;
+  top: 0;
+  right: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter,
+.fade-leave-to
+/* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
