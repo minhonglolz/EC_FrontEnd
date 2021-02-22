@@ -24,10 +24,13 @@
           <li @click="clickHandler(4)" v-on:mouseover="mousehoverHandload(4)">
             <router-link :to="'/sentence'">Sentence</router-link>
           </li>
+          <li @click="clickHandler(5)" v-on:mouseover="mousehoverHandload(5)">
+            <router-link :to="'/Topic'">Topic</router-link>
+          </li>
           <li>
             <a
-              @click="clickHandler(5)"
-              v-on:mouseover="mousehoverHandload(5)"
+              @click="clickHandler(6)"
+              v-on:mouseover="mousehoverHandload(6)"
               href="https://sels.nkfust.edu.tw/userindex"
               >Backend</a
             >
@@ -93,6 +96,11 @@ export default {
           watchmark: "S",
           title: "Sentence",
           content: "提供隨機100句句子，可播放語音、翻譯中文",
+        },
+        {
+          watchmark: "TC",
+          title: "Topic",
+          content: "Topic",
         },
         {
           watchmark: "B",
