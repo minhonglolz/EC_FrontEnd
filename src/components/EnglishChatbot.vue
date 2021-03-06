@@ -1,8 +1,7 @@
 <template>
   <div class="showoff col">
     <div class="list">
-      Level : {{ LevelText }},{{ annotation[userLevel - 1].text }} <br />
-      相似度 :
+      Level : {{ LevelText }},{{ annotation[userLevel - 1].text }}，相似度 :
       {{ LESE_vef }}
       <!-- <button @click="deletelocalStorage">刪除紀錄</button> -->
       <button v-show="chatBotStart" :title="'go away'" @click="goaway()">

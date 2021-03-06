@@ -1,15 +1,21 @@
 <template>
   <div class="container-fluid">
-    <nav></nav>
+    <nav>
+      <ul>
+        <li>Learn</li>
+        <li>Review</li>
+        <li>Test</li>
+      </ul>
+    </nav>
     <div class="loadingTime"></div>
-    <div class="row">
+    <div class="row appContent">
       <div class="navbar col">
         <div class="watchmark">{{ nowintroduction.watchmark }}</div>
         <div class="bookmark">
           <div class="bookmark-circle">{{ currentpage.title }}</div>
           <div class="bookmark-text">{{ currentpage.text }}</div>
         </div>
-        <ul class="pb-5">
+        <ul>
           <li @click="clickHandler(0)" v-on:mouseover="mousehoverHandload(0)">
             <router-link :to="'/Home'">Home</router-link>
           </li>

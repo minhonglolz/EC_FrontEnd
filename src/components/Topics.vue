@@ -3,8 +3,14 @@
     <div class="topicbox">
       <div class="leftList">
         <ul>
+          <p>Classify</p>
           <li @click="topicListHandler()">Topics</li>
-          <li @click="levelListHandler()">Level</li>
+          <li
+            :title="'根據CERF等級分類為A1,A2,B1,B2,C1,C2'"
+            @click="levelListHandler()"
+          >
+            Level
+          </li>
         </ul>
       </div>
 
@@ -16,7 +22,9 @@
         </div>
         <div class="rightListConetnt">
           <ol v-show="rightListisShow">
-            <span>Total Count: {{ rightList.length }}</span>
+            <span>
+              根據不同的Classify產生不同的細項分類，點選進入該細項分類的句子。
+            </span>
             <li
               @click="getSentTopics(item)"
               v-for="item in rightList"
@@ -26,7 +34,7 @@
             </li>
           </ol>
           <ol v-show="rightSentisShow">
-            <span>Total Count: {{ rightSentList.length }}</span>
+            <span>此分類細項句子總數為：{{ rightSentList.length }}</span>
             <li
               @click="getSentbyId(item[0])"
               v-for="item in rightSentList"
