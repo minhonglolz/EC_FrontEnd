@@ -3,7 +3,7 @@
     <div class="topicbox">
       <div class="leftList">
         <ul>
-          <li @click="topicListHandler()">Topic</li>
+          <li @click="topicListHandler()">Topics</li>
           <li @click="levelListHandler()">Level</li>
         </ul>
       </div>
@@ -15,7 +15,8 @@
           </button>
         </div>
         <div class="rightListConetnt">
-          <ul v-show="rightListisShow">
+          <ol v-show="rightListisShow">
+            <span>Total Count: {{ rightList.length }}</span>
             <li
               @click="getSentTopics(item)"
               v-for="item in rightList"
@@ -23,8 +24,9 @@
             >
               {{ item }}
             </li>
-          </ul>
-          <ul v-show="rightSentisShow">
+          </ol>
+          <ol v-show="rightSentisShow">
+            <span>Total Count: {{ rightSentList.length }}</span>
             <li
               @click="getSentbyId(item[0])"
               v-for="item in rightSentList"
@@ -32,7 +34,7 @@
             >
               {{ item[1] }}
             </li>
-          </ul>
+          </ol>
           <div v-show="rightDeatilsisShow" class="sentDeatils">
             <h6>Content: {{ DeatilsContent }}</h6>
             <h6>Level: {{ DeatilsLevel }}</h6>
@@ -48,7 +50,7 @@
 
 <script>
 export default {
-  name: "Topic",
+  name: "Topics",
   data() {
     return {
       rightListisShow: false,

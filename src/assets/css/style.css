@@ -2,7 +2,6 @@
     font-family: "Founders Grotesk", Helvetica, Arial, sans-serif, "黑體-繁", "微軟正黑體", sans-serif;
     outline: none !important;
     box-sizing: border-box;
-    list-style: none;
 }
 
 body {
@@ -399,7 +398,13 @@ body {
 }
 
 .topicbox ul {
-    padding: 30px 0 20px 0 !important;
+    list-style: none;
+    padding: 0;
+}
+
+.topicbox ol,
+.topicbox ul {
+    padding-top: 30px !important;
     text-align: center;
     height: 100%;
     display: flex;
@@ -408,6 +413,7 @@ body {
     box-shadow: 3px 0px 10px -4px rgba(0, 0, 0, 0.3);
 }
 
+.topicbox ol li,
 .topicbox ul li {
     cursor: pointer;
     font-size: calc(115px + 40 * (1vw - 1024px) / 416);
@@ -416,6 +422,7 @@ body {
     transition: 0.3s;
 }
 
+.topicbox ol li:hover,
 .topicbox ul li:hover {
     color: rgba(65, 65, 65);
     padding-left: 10px;
@@ -435,6 +442,12 @@ body {
     box-shadow: 3px 0px 10px -4px rgba(0, 0, 0, 0.3);
 }
 
+.rightListConetnt span {
+    text-align: left;
+    color: rgba(65, 65, 65, 0.6);
+    font-size: calc(115px + 40 * (1vw - 1024px) / 416);
+}
+
 .rightListNav button {
     height: 100%;
     color: rgba(65, 65, 65, 0.6);
@@ -448,7 +461,7 @@ body {
     color: rgba(65, 65, 65);
 }
 
-.topicbox .rightList ul {
+.topicbox .rightList ol {
     overflow-y: scroll;
 }
 
@@ -456,10 +469,10 @@ body {
     padding: 30px 0 20px 25px;
 }
 
-.topicbox .rightList ul li {
+.topicbox .rightList ol li {
     cursor: pointer;
     text-align: left;
-    padding: 10px 0 10px 25px;
+    padding: 10px 0 10px 5px;
 }
 
 .topicbox .rightList .sentDeatils h6 {
@@ -470,4 +483,25 @@ body {
 .topicbox .rightList .sentDeatils p {
     font-size: calc(115px + 40 * (1vw - 1024px) / 416);
     margin-bottom: 10px;
+}
+
+
+/* Exercise */
+
+.startButton {
+    float: right;
+    outline: none;
+    padding: 5px 10px;
+    /* font-size: 30px; */
+    background-color: #1add31;
+    color: #fff;
+    border: none;
+    margin: 10px 0;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.startButtonDisable {
+    background-color: #ccc;
 }

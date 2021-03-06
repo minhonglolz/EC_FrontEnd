@@ -5,7 +5,8 @@ import EnglishChatbot from "../components/EnglishChatbot.vue";
 import Translate from "../components/Translate.vue";
 import Vocabulary from "../components/Vocabulary.vue";
 import Sentence from "../components/Sentence.vue";
-import Topic from "../components/Topic.vue";
+import Topics from "../components/Topics.vue";
+import Exercise from "../components/Exercise.vue";
 
 Vue.use(Router);
 export default new Router({
@@ -43,7 +44,12 @@ export default new Router({
         {
             path: "/Topic",
             name: "Topic",
-            component: Topic,
+            component: Topics,
+        },
+        {
+            path: "/Exercise",
+            name: "Exercise",
+            component: Exercise,
         },
     ],
 });

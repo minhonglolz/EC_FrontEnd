@@ -1,5 +1,6 @@
 <template>
   <div class="container-fluid">
+    <nav></nav>
     <div class="loadingTime"></div>
     <div class="row">
       <div class="navbar col">
@@ -16,16 +17,19 @@
             <router-link :to="'/EnglishChatbot'">Listen & Speak</router-link>
           </li>
           <li @click="clickHandler(2)" v-on:mouseover="mousehoverHandload(2)">
-            <router-link :to="'/Translate'">Translate</router-link>
+            <router-link :to="'/Exercise'">Exercise</router-link>
           </li>
           <li @click="clickHandler(3)" v-on:mouseover="mousehoverHandload(3)">
-            <router-link :to="'/Vocabulary'">Vocabulary</router-link>
+            <router-link :to="'/Translate'">Translate</router-link>
           </li>
           <li @click="clickHandler(4)" v-on:mouseover="mousehoverHandload(4)">
-            <router-link :to="'/sentence'">Sentence</router-link>
+            <router-link :to="'/Vocabulary'">Vocabulary</router-link>
           </li>
           <li @click="clickHandler(5)" v-on:mouseover="mousehoverHandload(5)">
-            <router-link :to="'/Topic'">Topic</router-link>
+            <router-link :to="'/sentence'">Sentence</router-link>
+          </li>
+          <li @click="clickHandler(6)" v-on:mouseover="mousehoverHandload(6)">
+            <router-link :to="'/Topic'">Topics</router-link>
           </li>
           <li>
             <a
@@ -81,6 +85,11 @@ export default {
             "透過和English chatbot對答的方式練習英語聽力及發音根據使用者的英語聽說能力給予最合適的練習語句",
         },
         {
+          watchmark: "EX",
+          title: "Exercise",
+          content: "Exercise",
+        },
+        {
           watchmark: "T",
           title: "Translate",
           content:
@@ -98,8 +107,8 @@ export default {
           content: "提供隨機100句句子，可播放語音、翻譯中文",
         },
         {
-          watchmark: "TC",
-          title: "Topic",
+          watchmark: "TS",
+          title: "Topics",
           content: "Topic",
         },
         {
