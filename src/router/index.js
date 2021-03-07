@@ -10,46 +10,47 @@ import Exercise from "../components/Exercise.vue";
 
 Vue.use(Router);
 export default new Router({
-    mode: "history",
-    routes: [{
-            path: "/",
-            name: "/",
-            component: Home,
-        },
-        {
-            path: "/Home",
-            name: "/",
-            component: Home,
-        },
-        {
-            path: "/EnglishChatbot",
-            name: "/EnglishChatbot",
-            component: EnglishChatbot,
-        },
-        {
-            path: "/Translate",
-            name: "/Translate",
-            component: Translate,
-        },
-        {
-            path: "/Vocabulary",
-            name: "Voccabulary",
-            component: Vocabulary,
-        },
-        {
-            path: "/Sentence",
-            name: "Sentence",
-            component: Sentence,
-        },
-        {
-            path: "/Topic",
-            name: "Topic",
-            component: Topics,
-        },
-        {
-            path: "/Exercise",
-            name: "Exercise",
-            component: Exercise,
-        },
-    ],
+  mode: "history",
+  routes: [
+    {
+      path: "/",
+      name: "/",
+      component: Home,
+    },
+    {
+      path: "/Home",
+      name: "/",
+      component: Home,
+    },
+    {
+      path: "/EnglishChatbot",
+      name: "/EnglishChatbot",
+      component: EnglishChatbot,
+    },
+    {
+      path: "/Translate",
+      name: "/Translate",
+      component: Translate,
+    },
+    {
+      path: "/Vocabulary",
+      name: "Voccabulary",
+      component: Vocabulary,
+    },
+    {
+      path: "/Sentence",
+      name: "Sentence",
+      component: Sentence,
+    },
+    {
+      path: "/Topics",
+      name: "Topics",
+      component: Topics,
+    },
+    {
+      path: "/Exercise",
+      name: "Exercise",
+      component: Exercise,
+    },
+  ],
 });

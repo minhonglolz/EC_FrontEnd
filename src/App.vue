@@ -16,7 +16,15 @@
           <div class="bookmark-text">{{ currentpage.text }}</div>
         </div>
         <ul>
-          <li @click="clickHandler(0)" v-on:mouseover="mousehoverHandload(0)">
+          <li
+            v-for="(items, index) in introduction"
+            :key="index"
+            @click="clickHandler(index)"
+            v-on:mouseover="mousehoverHandload(index)"
+          >
+            <router-link :to="items.url">{{ items.title }}</router-link>
+          </li>
+          <!-- <li @click="clickHandler(0)" v-on:mouseover="mousehoverHandload(0)">
             <router-link :to="'/Home'">Home</router-link>
           </li>
           <li @click="clickHandler(1)" v-on:mouseover="mousehoverHandload(1)">
@@ -44,7 +52,7 @@
               href="https://sels.nkfust.edu.tw/userindex"
               >Backend</a
             >
-          </li>
+          </li> -->
         </ul>
       </div>
       <router-view
@@ -75,50 +83,59 @@ export default {
       },
       nowintroduction: {
         watchmark: "H",
+        url: "/Home",
         title: "Home",
         content: "Hello!! Welcome to learn English website.",
       },
       introduction: [
         {
           watchmark: "H",
+          url: "/Home",
           title: "Home",
           content: "Hello!! Welcome to learn English website.",
         },
         {
           watchmark: "LS",
+          url: "/EnglishChatbot",
           title: "Listen & Speak",
           content:
             "透過和English chatbot對答的方式練習英語聽力及發音根據使用者的英語聽說能力給予最合適的練習語句",
         },
         {
           watchmark: "EX",
+          url: "/Exercise",
           title: "Exercise",
           content: "Exercise",
         },
         {
           watchmark: "T",
+          url: "/Translate",
           title: "Translate",
           content:
             "提供中英轉換的翻譯功能且支援語音輸入將使用者輸入的文本翻譯為對應的語言",
         },
         {
           watchmark: "V",
+          url: "/Vocabulary",
           title: "Vocabulary",
           content:
             "提供查詢單字的功能內容包括音標、例句、同義詞、上位詞和下為詞等資訊",
         },
         {
           watchmark: "S",
+          url: "/Sentence",
           title: "Sentence",
           content: "提供隨機100句句子，可播放語音、翻譯中文",
         },
         {
           watchmark: "TS",
+          url: "/Topics",
           title: "Topics",
           content: "Topic",
         },
         {
           watchmark: "B",
+          url: "/userindex",
           title: "Backend",
           content: "使用者可以由此查看更多更詳細的後端分析資訊",
         },
