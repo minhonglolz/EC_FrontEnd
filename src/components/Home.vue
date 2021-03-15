@@ -6,7 +6,7 @@
     <div class="showoff col">
       <div class="homeText">
         <h1>{{ title }}</h1>
-        <span>{{ content }}</span>
+        <span v-html="content">{{ content }}</span>
       </div>
     </div>
   </div>

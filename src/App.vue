@@ -2,9 +2,13 @@
   <div class="container-fluid">
     <nav>
       <ul>
-        <li>Learn</li>
-        <li>Review</li>
-        <li>Test</li>
+        <li
+          v-for="(items, index) in classifyList"
+          :key="index"
+          @click="classifyHandler(items.classify)"
+        >
+          {{ items.classify }}
+        </li>
       </ul>
     </nav>
     <div class="loadingTime"></div>
@@ -21,38 +25,24 @@
             :key="index"
             @click="clickHandler(index)"
             v-on:mouseover="mousehoverHandload(index)"
+            v-show="items.classify === currentClassify"
           >
-            <router-link :to="items.url">{{ items.title }}</router-link>
+            <router-link :to="items.url"
+              >{{ items.title }}
+              <transition name="fade">
+                <ul v-show="currentpage.text === 'Sentence'">
+                  <li
+                    class="subItem"
+                    v-for="(sub, index) in items.sub"
+                    :key="index"
+                  >
+                    <router-link :to="sub.url">{{ sub.title }}</router-link>
+                  </li>
+                </ul>
+              </transition>
+            </router-link>
           </li>
-          <!-- <li @click="clickHandler(0)" v-on:mouseover="mousehoverHandload(0)">
-            <router-link :to="'/Home'">Home</router-link>
-          </li>
-          <li @click="clickHandler(1)" v-on:mouseover="mousehoverHandload(1)">
-            <router-link :to="'/EnglishChatbot'">Listen & Speak</router-link>
-          </li>
-          <li @click="clickHandler(2)" v-on:mouseover="mousehoverHandload(2)">
-            <router-link :to="'/Exercise'">Exercise</router-link>
-          </li>
-          <li @click="clickHandler(3)" v-on:mouseover="mousehoverHandload(3)">
-            <router-link :to="'/Translate'">Translate</router-link>
-          </li>
-          <li @click="clickHandler(4)" v-on:mouseover="mousehoverHandload(4)">
-            <router-link :to="'/Vocabulary'">Vocabulary</router-link>
-          </li>
-          <li @click="clickHandler(5)" v-on:mouseover="mousehoverHandload(5)">
-            <router-link :to="'/sentence'">Sentence</router-link>
-          </li>
-          <li @click="clickHandler(6)" v-on:mouseover="mousehoverHandload(6)">
-            <router-link :to="'/Topic'">Topics</router-link>
-          </li>
-          <li>
-            <a
-              @click="clickHandler(6)"
-              v-on:mouseover="mousehoverHandload(6)"
-              href="https://sels.nkfust.edu.tw/userindex"
-              >Backend</a
-            >
-          </li> -->
+          <li><a href="https://sels.nkfust.edu.tw/userindex">BackEnd</a></li>
         </ul>
       </div>
       <router-view
@@ -76,16 +66,29 @@ export default {
   name: "App",
   data() {
     return {
-      msg: "sss",
+      currentClassify: "Learn",
       currentpage: {
         title: "H",
         text: "Home",
       },
+      classifyList: [
+        {
+          classify: "Learn",
+        },
+        {
+          classify: "Review",
+        },
+        {
+          classify: "Test",
+        },
+      ],
       nowintroduction: {
         watchmark: "H",
         url: "/Home",
         title: "Home",
         content: "Hello!! Welcome to learn English website.",
+        sub: [],
+        classify: "Learn",
       },
       introduction: [
         {
@@ -93,6 +96,8 @@ export default {
           url: "/Home",
           title: "Home",
           content: "Hello!! Welcome to learn English website.",
+          sub: [],
+          classify: "Learn",
         },
         {
           watchmark: "LS",
@@ -100,12 +105,16 @@ export default {
           title: "Listen & Speak",
           content:
             "透過和English chatbot對答的方式練習英語聽力及發音根據使用者的英語聽說能力給予最合適的練習語句",
+          sub: [],
+          classify: "Learn",
         },
         {
           watchmark: "EX",
           url: "/Exercise",
           title: "Exercise",
           content: "Exercise",
+          sub: [],
+          classify: "Learn",
         },
         {
           watchmark: "T",
@@ -113,6 +122,8 @@ export default {
           title: "Translate",
           content:
             "提供中英轉換的翻譯功能且支援語音輸入將使用者輸入的文本翻譯為對應的語言",
+          sub: [],
+          classify: "Learn",
         },
         {
           watchmark: "V",
@@ -120,29 +131,37 @@ export default {
           title: "Vocabulary",
           content:
             "提供查詢單字的功能內容包括音標、例句、同義詞、上位詞和下為詞等資訊",
+          sub: [],
+          classify: "Learn",
         },
         {
           watchmark: "S",
-          url: "/Sentence",
+          url: "/",
           title: "Sentence",
-          content: "提供隨機100句句子，可播放語音、翻譯中文",
-        },
-        {
-          watchmark: "TS",
-          url: "/Topics",
-          title: "Topics",
-          content: "Topic",
-        },
-        {
-          watchmark: "B",
-          url: "/userindex",
-          title: "Backend",
-          content: "使用者可以由此查看更多更詳細的後端分析資訊",
+          content: `Practice:提供隨機100句句子，可播放語音、翻譯中文<br/>
+          Browsing:可以瀏覽所有已收錄句子，分類為Topics, Level
+          `,
+          classify: "Learn",
+          sub: [
+            {
+              watchmark: "P",
+              url: "/Sentence",
+              title: "Practice",
+            },
+            {
+              watchmark: "B",
+              url: "/Topics",
+              title: "Browsing",
+            },
+          ],
         },
       ],
     };
   },
   methods: {
+    classifyHandler(value) {
+      this.currentClassify = value;
+    },
     mousehoverHandload(value) {
       this.nowintroduction.watchmark = this.introduction[value].watchmark;
       this.nowintroduction.title = this.introduction[value].title;

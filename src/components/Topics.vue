@@ -34,7 +34,11 @@
             </li>
           </ol>
           <ol v-show="rightSentisShow">
-            <span>此分類細項句子總數為：{{ rightSentList.length }}</span>
+            <span
+              >{{ selectTitle }}此分類細項句子總數為：{{
+                rightSentList.length
+              }}</span
+            >
             <li
               @click="getSentbyId(item[0])"
               v-for="item in rightSentList"
@@ -64,6 +68,7 @@ export default {
       rightListisShow: false,
       rightSentisShow: false,
       rightDeatilsisShow: false,
+      selectTitle: "",
       currentList: "List",
       isLevel: false,
       rightList: [],
@@ -74,6 +79,17 @@ export default {
       DeatilsLength: null,
       DeatilsSimilarity: null,
     };
+  },
+  mounted: {
+    test() {
+      let getSentCount = new FormData();
+      getSentCount.set("Source", "all");
+      this.axios
+        .post("https://sels.nkfust.edu.tw/getSentCount", getSentCount)
+        .then((response) => {
+          console.log(response.data.data.Topic);
+        });
+    },
   },
   methods: {
     topicListHandler() {
@@ -98,6 +114,7 @@ export default {
     },
     getSentTopics(value) {
       this.rightSentList = [];
+      this.selectTitle = value;
       if (this.isLevel === true) {
         let url = "https://sels.nkfust.edu.tw/getSent";
         let getSent = new FormData();

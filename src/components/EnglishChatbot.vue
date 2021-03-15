@@ -273,7 +273,7 @@ export default {
           )
           .then((response) => {
             this.firstChat = true;
-            this.random_question = response.data.data.toLowerCase();
+            this.random_question = response.data.data.Content[0].toLowerCase();
             if (this.lang_ === "zh-TW") {
               // this.random_question = "abandon your life to god.";
               var getSentChinese = new FormData();
@@ -298,12 +298,12 @@ export default {
                   }
                 });
             } else if (this.FulfillmentText === "") {
-              this.chatbotStartInput(response.data.data); //呼叫chatbot視窗顯示
-              this.chatbotSpeech(response.data.data);
+              this.chatbotStartInput(response.data.data.Content[0]); //呼叫chatbot視窗顯示
+              this.chatbotSpeech(response.data.data.Content[0]);
             } else {
               setTimeout(() => {
-                this.chatbotStartInput(response.data.data); //呼叫chatbot視窗顯示
-                this.chatbotSpeech(response.data.data);
+                this.chatbotStartInput(response.data.data.Content[0]); //呼叫chatbot視窗顯示
+                this.chatbotSpeech(response.data.data.Content[0]);
               }, 1500);
             }
           });
