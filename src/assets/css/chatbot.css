@@ -1,8 +1,8 @@
 .charbox-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .chatbox,
@@ -10,223 +10,221 @@
 .vocabularybox,
 .sentencebox,
 .topicbox {
-    display: flex;
-    flex-direction: column;
-    height: 80%;
-    width: 80%;
-    max-width: 1000px;
-    min-width: 390px;
-    background-color: #fff;
-    padding: 10px;
-    margin: 0px 60px 0 30px;
-    border-radius: 3px;
-    box-shadow: 0 0.3125rem 1.25rem 0 rgba(0, 0, 0, 0.16);
-    background-color: rgb(252, 252, 252);
+  display: flex;
+  flex-direction: column;
+  height: 80%;
+  width: 80%;
+  max-width: 1000px;
+  min-width: 390px;
+  background-color: #fff;
+  padding: 10px;
+  margin: 0px 60px 0 30px;
+  border-radius: 3px;
+  box-shadow: 0 0.3125rem 1.25rem 0 rgba(0, 0, 0, 0.16);
+  background-color: rgb(252, 252, 252);
 }
 
 .chatbox {
-    position: relative;
+  position: relative;
 }
 
 .translatebox,
 .vocabularybox,
 .topicbox {
-    height: 80%;
+  height: 80%;
 }
 
 .sentencebox {
-    height: 40%;
-    position: relative;
-    transition: 0.3s;
+  height: 40%;
+  position: relative;
+  transition: 0.3s;
 }
 
 .topicbox {
-    display: flex;
-    flex-direction: row;
-    padding: 0;
+  display: flex;
+  flex-direction: row;
+  padding: 0;
 }
 
 .sentencebox:hover {
-    transform: scale(1.04);
-    background-color: rgba(238, 238, 238, 0.4);
+  transform: scale(1.04);
+  background-color: rgba(238, 238, 238, 0.4);
 }
 
 .list {
-    max-width: 1000px;
-    min-width: 390px;
-    width: 81%;
-    padding: 0 10px;
-    margin: 0 0 10px 30px;
+  max-width: 1000px;
+  min-width: 390px;
+  width: 81%;
+  padding: 0 10px;
+  margin: 0 0 10px 30px;
 }
 
 .list button {
-    border: none;
-    background: none;
-    float: right;
+  border: none;
+  background: none;
+  float: right;
 }
 
 .chatbot-info {
-    width: 100%;
-    height: 100%;
-    padding: 0 30px 0 100px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 30px 0 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .chatbot-info h1 {
-    /* font-size: 28px; */
-    line-height: 60px;
-    color: rgba(255, 255, 255, 0.8);
+  /* font-size: 28px; */
+  line-height: 60px;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .chatbot-info h2 {
-    /* font-size: 18px; */
-    line-height: 40px;
-    color: rgba(255, 255, 255, 0.6);
+  /* font-size: 18px; */
+  line-height: 40px;
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .chatlogs {
-    padding: 10px;
-    width: 100%;
-    height: 600px;
-    overflow-x: hidden;
-    overflow-y: scroll;
+  padding: 10px;
+  width: 100%;
+  height: 600px;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 .chatlogs::-webkit-scrollbar {
-    width: 10px;
+  width: 10px;
 }
 
 .chatlogs::-webkit-scrollbar-thumb {
-    border-radius: 5px;
-    background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .chat {
-    display: flex;
-    flex-flow: row wrap;
-    align-items: flex-start;
-    margin-bottom: 10px;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-start;
+  margin-bottom: 10px;
 }
 
 .chat .user-photo {
-    width: 60px;
-    height: 60px;
-    background-color: #ccc;
-    border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  background-color: #ccc;
+  border-radius: 50%;
 }
 
 .chat .chatMessage {
-    padding: 15px;
-    margin: 5px 10px 0;
-    border-radius: 10px;
-    color: #fff;
-    /* font-size: 20px; */
+  cursor: pointer;
+  padding: 15px;
+  margin: 5px 10px 0;
+  border-radius: 10px;
+  color: #fff;
+  /* font-size: 20px; */
 }
 
 .chatlogs .user {
-    justify-content: flex-end;
+  justify-content: flex-end;
 }
 
 .user .chatMessage {
-    background-color: #1add31;
-    order: -1;
+  background-color: #1add31;
+  order: -1;
 }
 
 .chatbot .chatMessage {
-    background-color: #0984e3;
+  background-color: #0984e3;
 }
 
 .chat-form {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .chat-form textarea {
-    background-color: #fbfbfb;
-    width: 100%;
-    height: 50px;
-    border: 2px solid #eee;
-    border-radius: 3px;
-    resize: none;
-    padding: 10px;
-    /* font-size: 18px; */
-    color: #333;
+  background-color: #fbfbfb;
+  width: 100%;
+  height: 50px;
+  border: 2px solid #eee;
+  border-radius: 3px;
+  resize: none;
+  padding: 10px;
+  /* font-size: 18px; */
+  color: #333;
 }
 
 .chat-form textarea:focus {
-    background: #fff;
+  background: #fff;
 }
 
 .model-button {
-    outline: none;
-    padding: 5px 10px;
-    /* font-size: 30px; */
-    color: #fff;
-    border: none;
-    margin: 0 5px;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background 0.3s;
+  outline: none;
+  padding: 5px 10px;
+  /* font-size: 30px; */
+  color: #fff;
+  border: none;
+  margin: 0 5px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
 .sent-button {
-    background-color: #0984e3;
+  background-color: #0984e3;
 }
-
 
 /* .sent-button:hover {
     background: #13c8d9;
 } */
 
 .micstart-button {
-    width: 100%;
-    padding: 5px 15px;
-    background-color: #0984e3;
+  width: 100%;
+  padding: 5px 15px;
+  background-color: #0984e3;
 }
-
 
 /* .micstart-button:hover {
     background: #13c8d9;
 } */
 
 .micstop-button {
-    width: 100%;
-    padding: 5px 15px;
-    background-color: #ff0000;
-    box-shadow: 0 3px 0 #ff0000;
+  width: 100%;
+  padding: 5px 15px;
+  background-color: #ff0000;
+  box-shadow: 0 3px 0 #ff0000;
 }
 
 .micstop-button:hover {
-    background: #d91313;
+  background: #d91313;
 }
 
 .chat-form ::-webkit-scrollbar {
-    width: 5px;
+  width: 5px;
 }
 
 .chat-form ::-webkit-scrollbar-thumb {
-    border-radius: 5px;
-    background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.1);
 }
-
 
 /* modeBox */
 
 .modeBox {
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translateX(-120%);
-    display: flex;
-    flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateX(-120%);
+  display: flex;
+  flex-direction: column;
 }
 
 .modeButton_enUS {
-    background-color: #0984e3;
+  background-color: #0984e3;
 }
 
 .modeButton_Chi {
-    background-color: rgb(100, 181, 135);
+  background-color: rgb(100, 181, 135);
 }

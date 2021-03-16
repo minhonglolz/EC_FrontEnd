@@ -5,12 +5,18 @@
         <div v-for="item in message">
           <div v-if="item.userName == 'chatbot'">
             <div class="chat chatbot">
-              <p v-html="item.inputText" class="chatMessage"></p>
+              <p
+                @click="chatbotSpeech(item.inputText)"
+                v-html="item.inputText"
+                class="chatMessage"
+              ></p>
             </div>
           </div>
           <div v-if="item.userName == 'user'">
             <div class="chat user">
-              <p class="chatMessage">{{ item.inputText }}</p>
+              <p class="chatMessage">
+                {{ item.inputText }}
+              </p>
             </div>
           </div>
         </div>
@@ -111,7 +117,6 @@ export default {
     ExerciseGetSent() {
       var n = 3;
       while (n < 27) {
-        console.log("ss");
         let getSentbyChar = new FormData();
         getSentbyChar.set("Char", n);
         getSentbyChar.set("Level", this.userLevel);
@@ -155,7 +160,7 @@ export default {
         .then((response) => {
           console.log(response.data);
           let FulfillmentText = response.data.data.Answer.FulfillmentText;
-          this.chatbotStartInput("Similarity:" + response.data.data.vef);
+          // this.chatbotStartInput("Similarity:" + response.data.data.vef);
           this.lang_ = "en-US"; //必須先改回英文，否則中文會出錯
           this.currentSent++;
           this.ExerciseOutput();
@@ -189,7 +194,7 @@ export default {
       window.speechSynthesis.cancel();
       this.userSpeech.text = sent;
       this.userSpeech.lang = this.lang_; //語音撥放語言
-      this.userSpeech.rate = 0.7; //語音速度
+      this.userSpeech.rate = 0.8; //語音速度
       this.synth.speak(this.userSpeech); //播放
     },
     checkUserInput(input) {

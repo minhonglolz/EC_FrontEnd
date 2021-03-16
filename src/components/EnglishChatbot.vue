@@ -31,7 +31,11 @@
         <div v-for="item in message">
           <div v-if="item.userName == 'chatbot'">
             <div class="chat chatbot">
-              <p v-html="item.inputText" class="chatMessage"></p>
+              <p
+                @click="chatbotSpeech(item.inputText)"
+                v-html="item.inputText"
+                class="chatMessage"
+              ></p>
             </div>
           </div>
           <div v-if="item.userName == 'user'">
@@ -62,6 +66,7 @@
           @click="micStart()"
           id="micstart-button"
           class="micstart-button model-button"
+          :disabled="waitFeedBack"
         >
           <i class="fas fa-microphone"></i>
         </button>
@@ -124,6 +129,7 @@ export default {
       random_question: "", //隨機句子
       user_answer: "", //使用者答案
       FulfillmentText: "", //回櫃句給使用者表現
+      waitFeedBack: false,
       LESE_vef: 0,
       correct: 0,
       incorrect: 0,
@@ -199,8 +205,12 @@ export default {
         }
       }
       if (this.chatBotStart || this.exit) {
-        this.getSent(this.userLevel); //依目前使用者等級呼叫對應句子
-        console.log("ss");
+        !this.firstChat
+          ? this.getSent(this.userLevel)
+          : setTimeout(() => {
+              this.getSent(this.userLevel);
+            }, 1500);
+        //依目前使用者等級呼叫對應句子
       }
       this.scrollTop();
     },
@@ -232,7 +242,6 @@ export default {
     },
     getSent(level) {
       if (this.exit === true && this.user_answer === "yes") {
-        console.log("ss");
         localStorage.setItem("userLevel", this.userLevel);
         this.chatbotStartInput("Will save this record thank you");
         this.chatbotSpeech("Will save this record thank you");
@@ -278,7 +287,6 @@ export default {
               // this.random_question = "abandon your life to god.";
               var getSentChinese = new FormData();
               getSentChinese.set("Sent", this.random_question);
-              console.log(getSentChinese.get("Sent"));
               this.axios
                 .post(
                   "https://sels.nkfust.edu.tw/getSentChinese",
@@ -286,7 +294,6 @@ export default {
                 )
                 .then((response) => {
                   if (this.FulfillmentText === "") {
-                    console.log(response.data.Chinese);
                     this.chatbotStartInput(response.data.Chinese); //呼叫chatbot視窗顯示
                     this.chatbotSpeech(response.data.Chinese);
                   } else {
@@ -294,7 +301,7 @@ export default {
                       this.lang_ = "zh-TW";
                       this.chatbotStartInput(response.data.Chinese); //呼叫chatbot視窗顯示
                       this.chatbotSpeech(response.data.Chinese);
-                    }, 1500);
+                    }, 2000);
                   }
                 });
             } else if (this.FulfillmentText === "") {
@@ -304,7 +311,7 @@ export default {
               setTimeout(() => {
                 this.chatbotStartInput(response.data.data.Content[0]); //呼叫chatbot視窗顯示
                 this.chatbotSpeech(response.data.data.Content[0]);
-              }, 1500);
+              }, 2000);
             }
           });
       }
@@ -324,7 +331,6 @@ export default {
         this.axios
           .post("https://sels.nkfust.edu.tw/LESE_detect", JOSN_LESE_detect)
           .then((response) => {
-            console.log(response.data);
             let Level;
             switch (response.data.data.level) {
               case 1:
@@ -345,7 +351,7 @@ export default {
               default:
                 break;
             }
-
+            console.log(response.data);
             this.LevelText = Level;
             this.userLevel = response.data.data.level;
             this.correct = response.data.data.true_count;
@@ -355,6 +361,8 @@ export default {
             this.lang_ = "en-US"; //必須先改回英文，否則中文會出錯
             this.chatbotStartInput(this.FulfillmentText); // 呼叫回饋句
             this.chatbotSpeech(this.FulfillmentText); // 呼叫回饋句
+
+            this.waitFeedBack = false;
             this.isShowMode === false
               ? (this.lang_ = "zh-TW")
               : (this.lang_ = "en-US");
@@ -390,9 +398,9 @@ export default {
       this.recognition.stop();
       this.micBtn = !this.micBtn;
       console.log("stop record");
-      this.chatUserSent();
       this.user_answer = this.runtimeTranscription_;
       this.checkUserInput(this.runtimeTranscription_);
+      this.chatUserSent();
     },
     // 更改模式
     modeChange() {
