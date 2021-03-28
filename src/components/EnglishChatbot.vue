@@ -1,72 +1,63 @@
 <template>
   <div class="showoff col">
     <div class="list">
-      Level : {{ LevelText }},{{ annotation[userLevel - 1].text }}，相似度 :
-      {{ LESE_vef }}
+      Level : {{ Level }}
       <!-- <button @click="deletelocalStorage">刪除紀錄</button> -->
-      <button v-show="chatBotStart" :title="'go away'" @click="goaway()">
+      <button v-show="ListenSpkerStart" :title="'go away'" @click="goAway()">
         <i class="fas fa-sign-out-alt"></i>
       </button>
     </div>
     <div class="chatbox">
-      <div class="modeBox">
-        <button
-          v-if="isShowMode"
-          @click="modeChange"
-          :title="'Mode'"
-          class="model-button modeButton_enUS"
-        >
-          英
-        </button>
-        <button
-          v-else
-          @click="modeChange"
-          :title="'Mode'"
-          class="model-button modeButton_Chi"
-        >
-          中
-        </button>
-      </div>
       <div class="chatlogs" ref="chatLogs">
-        <div v-for="item in message">
+        <div v-for="(item, index) in message" :key="index">
           <div v-if="item.userName == 'chatbot'">
             <div class="chat chatbot">
-              <p
-                @click="chatbotSpeech(item.inputText)"
-                v-html="item.inputText"
-                class="chatMessage"
-              ></p>
+              <p @click="chatbotSpeech(item.content)" class="chatMessage">
+                {{ item.content }} <i class="fas fa-volume-up"></i>
+              </p>
             </div>
           </div>
           <div v-if="item.userName == 'user'">
             <div class="chat user">
-              <p class="chatMessage">{{ item.inputText }}</p>
+              <p class="chatMessage">
+                {{ item.content }}
+              </p>
             </div>
           </div>
         </div>
+        <v-select v-show="!ListenSpkerStart" v-model="mode" :options="modeList">
+        </v-select>
+        <button
+          :disabled="mode === null"
+          class="startButton"
+          :class="{
+            startButtonDisable: mode === null,
+          }"
+          v-show="!ListenSpkerStart"
+          @click="ListenSpkerStartHandler()"
+        >
+          Start
+        </button>
+        <button
+          class="stopButton"
+          v-show="!ListenSpkerStart"
+          @click="reStartLeel()"
+        >
+          Restart Level
+        </button>
       </div>
       <div class="chatprompt"></div>
       <div class="chat-form">
-        <!-- <textarea
-          v-model="nowInput"
-          id="sentTextarea"
-          v-on:keydown.enter.prevent="chatUserSent(), checkUserInput(nowInput)"
-          >{{ nowInput }}</textarea
-        >
         <button
-          id="sent-button"
-          class="sent-button model-button"
-          @click="chatUserSent(), checkUserInput(nowInput)"
-        >
-          <i class="fas fa-paper-plane"></i>
-        </button> -->
-        <button
+          :disabled="!ListenSpkerStart"
+          :class="{
+            startButtonDisable: !ListenSpkerStart,
+          }"
           :title="'Voice on'"
           v-show="micBtn"
           @click="micStart()"
           id="micstart-button"
           class="micstart-button model-button"
-          :disabled="waitFeedBack"
         >
           <i class="fas fa-microphone"></i>
         </button>
@@ -85,6 +76,8 @@
 </template>
 
 <script>
+window.speechSynthesis.cancel(); //每次重新整理視窗取消上次撥放中的語音
+
 export default {
   name: "EnglishChatbot",
   data() {
@@ -102,283 +95,181 @@ export default {
             "優級(Superior) 相當於受過高等教育之母語人士，各種場合均能使用適當策略做最有效的溝通",
         },
       ],
-      nowInput: "", // Textarea對話框
       message: [
+        //chatbot預設訊息
         {
           userName: "chatbot",
-          inputText: `Hello!</br></br>
-          To start talking: Click the blue microphone icon and then speak into your microphone.</br></br>
-          To stop talking: Click the red microphone icon.</br></br>`,
+          content: "Please choose a mode",
         },
-        {
-          userName: "chatbot",
-          inputText: "Say   [ Yes ]  when you are ready !",
-        },
+        // {
+        //   userName: "chatbot",
+        //   content: `
+        //   To start talking: Click the blue microphone icon and then speak into your microphone.`,
+        // },
+        // {
+        //   userName: "chatbot",
+        //   content: `To stop talking: Click the red microphone icon.`,
+        // },
+        // {
+        //   userName: "chatbot",
+        //   content: "Press start to practice the sentences produced",
+        // },
       ],
+      modeList: ["聽英說英", "聽中說英", "聽英說中"],
+      mode: null,
+      //chatbot
+      ListenSpkerStart: false, //對話機器人是否開始
+      Level: "A1", //使用者目前等級
+      userMicSent: "", //使用者答案
+      EnglishchatbotQuestion: "", //英文句子
+      ChinesechatbotQuestion: "", //中文句子
+      giveBackSentence: false, //使否等待回饋句
+      giveBackContent: "", //回櫃句給使用者表現文字
+      totalCorrect: 0, //正確次數總數
+      totalInCorrect: 0, //錯誤次數總數
+      correct: 0, //目前正確次數
+      incorrect: 0, //目前錯誤次數
+      LESE_vef: 0, //相似度
 
-      chatBotStart: false, //是否開始語音測試
-      firstChat: false, //監測使否為第一句對話
-      micBtn: true, //Mic icon color
-      synth: window.speechSynthesis, //機器人語音
-      userSpeech: new window.SpeechSynthesisUtterance(), //機器人語音
-      // recognition: new webkitSpeechRecognition(), // 建立語音辨識物件 webkitSpeechRecognition
+      //語音api
+      synth: window.speechSynthesis,
+      Synthesis: new window.SpeechSynthesisUtterance(),
+      listenLang: "en-US",
+
+      //錄音api
       recognition: new window.webkitSpeechRecognition(),
-      userLevel: 1, //使用者目前等級
-      LevelText: "A1",
-      exit: false, //是否離開視窗
-      random_question: "", //隨機句子
-      user_answer: "", //使用者答案
-      FulfillmentText: "", //回櫃句給使用者表現
-      waitFeedBack: false,
-      LESE_vef: 0,
-      correct: 0,
-      incorrect: 0,
-      getSentbyLevel: new FormData(),
-      runtimeTranscription_: "",
-      transcription_: [],
-      lang_: "en-US",
-      isShowMode: true,
+      getMicContent: "", //Mic錄音結果
+
+      //DOM
+      micBtn: true, //Mic icon color
+      //-------------------------------------------//
     };
   },
   mounted: function () {
-    if (localStorage.getItem("userLevel")) {
-      this.userLevel = parseInt(localStorage.getItem("userLevel"));
+    ///localStorgae本機紀錄
+    if (localStorage.getItem("Level")) {
+      this.Level = localStorage.getItem("Level");
     }
-
-    let Level;
-    switch (this.userLevel) {
-      case 1:
-        Level = "A1";
-        break;
-      case 2:
-        Level = "A2";
-        break;
-      case 3:
-        Level = "B1";
-        break;
-      case 4:
-        Level = "B2";
-        break;
-      case 5:
-        Level = "C1";
-        break;
-      default:
-        break;
-    }
-    this.LevelText = Level;
-    this.getSentbyLevel.append("Level", Level);
   },
   methods: {
-    chatUserSent(event) {
-      if (
-        (this.nowInput === "yes" && this.exit === false) ||
-        this.runtimeTranscription_ === "yes"
-      ) {
-        //判斷是否開始等級測試
-        this.chatBotStart = true;
-      }
-      this.user_answer = this.nowInput;
-      if (this.nowInput !== "" && this.nowInput.trim() !== "") {
-        this.message.push({
-          userName: "user",
-          inputText: this.nowInput,
-        });
-        this.nowInput = "";
-        this.scrollTop();
-      } else if (
-        this.runtimeTranscription_ !== "" &&
-        this.runtimeTranscription_.trim() !== ""
-      ) {
-        this.message.push({
-          userName: "user",
-          inputText: this.runtimeTranscription_,
-        });
-        this.nowInput = "";
-        this.scrollTop();
-      } else {
-        this.nowInput = "";
-        if (this.exit === true && this.chatBotStart === false) {
-          this.chatbotStartInput("Whether to save this record ? yes / no");
-          this.chatbotSpeech("Whether to save this record ? yes / no");
-        } else {
-          this.chatbotSpeech("Say   [ Yes ]  when you are ready !");
-        }
-      }
-      if (this.chatBotStart || this.exit) {
-        !this.firstChat
-          ? this.getSent(this.userLevel)
-          : setTimeout(() => {
-              this.getSent(this.userLevel);
-            }, 1500);
-        //依目前使用者等級呼叫對應句子
-      }
+    //語音機器人開始
+    ListenSpkerStartHandler() {
+      this.ListenSpkerStart = true;
+      this.message = [];
+      this.getSent(this.Level);
+    },
+    //將輸入加入陣列顯示在畫面
+    chatLogsSent(name, value) {
+      this.message.push({
+        userName: name,
+        content: value,
+      });
       this.scrollTop();
     },
+    //離開並保存這次的紀錄
+    goAway() {
+      this.ListenSpkerStart = false;
+      localStorage.setItem("Level", this.Level);
+      this.chatLogsSent("chatbot", "This record has been saved");
+      this.chatbotSpeech("This record has been saved");
+    },
+    //刪除localStorgae紀錄
+    reStartLeel() {
+      this.Level = "A1";
+      localStorage.setItem("Level", this.Level);
+      this.ListenSpkerStartHandler();
+    },
+    //chatbot視窗滾輪最底部
     scrollTop() {
       this.$nextTick(() => {
-        this.$refs.chatLogs.scrollTop = this.$refs.chatLogs.scrollHeight; //chatbot視窗滾輪最底部
+        this.$refs.chatLogs.scrollTop = this.$refs.chatLogs.scrollHeight;
       });
     },
-    goaway() {
-      this.exit = true;
-      this.chatBotStart = false;
-      this.chatbotStartInput("Whether to save this record ? yes / no");
-      this.chatbotSpeech("Whether to save this record ? yes / no");
-    },
-    chatbotStartInput(sent) {
-      this.message.push({
-        userName: "chatbot",
-        inputText: sent,
-      });
-      this.scrollTop(); //chatbot視窗滾輪最底部
-      this.chatbotSpeech("");
-    },
+    //語音機器人播放
     chatbotSpeech(sent) {
       window.speechSynthesis.cancel();
-      this.userSpeech.text = sent;
-      this.userSpeech.lang = this.lang_; //語音撥放語言
-      this.userSpeech.rate = 0.8; //語音速度
-      this.synth.speak(this.userSpeech); //播放
+      this.Synthesis.text = sent;
+      this.Synthesis.lang = this.listenLang; //語音撥放語言
+      this.Synthesis.rate = 0.8; //語音速度
+      this.synth.speak(this.Synthesis); //播放
     },
-    getSent(level) {
-      if (this.exit === true && this.user_answer === "yes") {
-        localStorage.setItem("userLevel", this.userLevel);
-        this.chatbotStartInput("Will save this record thank you");
-        this.chatbotSpeech("Will save this record thank you");
-        this.firstChat = false;
-        this.exit = false;
-      } else if (this.exit == true && this.user_answer == "no") {
-        this.chatbotStartInput("Will not save this record thank you");
-        this.chatbotSpeech("Will not save this record thank you");
-        this.firstChat = false;
-        this.exit = false;
-      }
-      if (this.chatBotStart && this.exit !== true) {
-        let Level;
-        switch (this.userLevel) {
-          case 1:
-            Level = "A1";
-            break;
-          case 2:
-            Level = "A2";
-            break;
-          case 3:
-            Level = "B1";
-            break;
-          case 4:
-            Level = "B2";
-            break;
-          case 5:
-            Level = "C1";
-            break;
-          default:
-            break;
-        }
-        this.getSentbyLevel.set("Level", Level);
+    //取得句子api
+    getSent(Level) {
+      let getSentbyLevel = new FormData(); //回傳api的FormData格式 （set）
+      this.giveBackSentence = false;
+      getSentbyLevel.set("Level", Level);
+      if (this.ListenSpkerStartHandler) {
         this.axios
-          .post(
-            "https://sels.nkfust.edu.tw/getSentbyLevel",
-            this.getSentbyLevel
-          )
+          .post("https://sels.nkfust.edu.tw/getSentbyLevel", getSentbyLevel)
           .then((response) => {
-            this.firstChat = true;
-            this.random_question = response.data.data.Content[0].toLowerCase();
-            if (this.lang_ === "zh-TW") {
-              // this.random_question = "abandon your life to god.";
-              var getSentChinese = new FormData();
-              getSentChinese.set("Sent", this.random_question);
-              this.axios
-                .post(
-                  "https://sels.nkfust.edu.tw/getSentChinese",
-                  getSentChinese
-                )
-                .then((response) => {
-                  if (this.FulfillmentText === "") {
-                    this.chatbotStartInput(response.data.Chinese); //呼叫chatbot視窗顯示
-                    this.chatbotSpeech(response.data.Chinese);
-                  } else {
-                    setTimeout(() => {
-                      this.lang_ = "zh-TW";
-                      this.chatbotStartInput(response.data.Chinese); //呼叫chatbot視窗顯示
-                      this.chatbotSpeech(response.data.Chinese);
-                    }, 2000);
-                  }
-                });
-            } else if (this.FulfillmentText === "") {
-              this.chatbotStartInput(response.data.data.Content[0]); //呼叫chatbot視窗顯示
-              this.chatbotSpeech(response.data.data.Content[0]);
-            } else {
-              setTimeout(() => {
-                this.chatbotStartInput(response.data.data.Content[0]); //呼叫chatbot視窗顯示
-                this.chatbotSpeech(response.data.data.Content[0]);
-              }, 2000);
+            this.EnglishchatbotQuestion = response.data.data.Content[0];
+            this.ChinesechatbotQuestion = response.data.data.Chinese[0];
+          })
+          .then(() => {
+            if (this.mode === "聽英說英") {
+              this.listenLang = "en-US";
+              this.speakLang = "en-US";
+              this.chatLogsSent("chatbot", this.EnglishchatbotQuestion); //呼叫chatbot視窗顯示
+              this.chatbotSpeech(this.EnglishchatbotQuestion);
+            } else if (this.mode === "聽中說英") {
+              this.listenLang = "zh-TW";
+              this.speakLang = "en-US";
+              this.chatLogsSent("chatbot", this.ChinesechatbotQuestion); //呼叫chatbot視窗顯示
+              this.chatbotSpeech(this.ChinesechatbotQuestion);
+            } else if (this.mode === "聽英說中") {
+              this.listenLang = "en-US";
+              this.speakLang = "zh-TW";
+              this.chatLogsSent("chatbot", this.EnglishchatbotQuestion); //呼叫chatbot視窗顯示
+              this.chatbotSpeech(this.EnglishchatbotQuestion);
             }
+            this.EnglishchatbotQuestion = this.EnglishchatbotQuestion.toLowerCase();
           });
       }
+      // }
     },
-    checkUserInput(input) {
-      if (this.firstChat === true && this.exit === false) {
-        let LESE_detect = {
-          level: this.userLevel,
-          true_count: this.correct,
-          fail_count: this.incorrect,
-          random_question: this.random_question.toLowerCase(),
-          user_answer: this.user_answer,
-          session_id: "123456789",
-          language_code: "en",
-        };
-        let JOSN_LESE_detect = JSON.stringify(LESE_detect);
-        this.axios
-          .post("https://sels.nkfust.edu.tw/LESE_detect", JOSN_LESE_detect)
-          .then((response) => {
-            let Level;
-            switch (response.data.data.level) {
-              case 1:
-                Level = "A1";
-                break;
-              case 2:
-                Level = "A2";
-                break;
-              case 3:
-                Level = "B1";
-                break;
-              case 4:
-                Level = "B2";
-                break;
-              case 5:
-                Level = "C1";
-                break;
-              default:
-                break;
-            }
-            console.log(response.data);
-            this.LevelText = Level;
-            this.userLevel = response.data.data.level;
-            this.correct = response.data.data.true_count;
-            this.incorrect = response.data.data.fail_count;
-            this.FulfillmentText = response.data.data.Answer.FulfillmentText;
-            this.LESE_vef = response.data.data.vef;
-            this.lang_ = "en-US"; //必須先改回英文，否則中文會出錯
-            this.chatbotStartInput(this.FulfillmentText); // 呼叫回饋句
-            this.chatbotSpeech(this.FulfillmentText); // 呼叫回饋句
-
-            this.waitFeedBack = false;
-            this.isShowMode === false
-              ? (this.lang_ = "zh-TW")
-              : (this.lang_ = "en-US");
-          });
-      }
+    //回傳使用者的答案給api辨識
+    checkUserSent() {
+      let LESE_detect = {
+        level: this.Level, //A1,A2,B1...
+        true_count: this.correct, //0,1,2,3
+        fail_count: this.incorrect,
+        random_question: this.EnglishchatbotQuestion.toLowerCase(),
+        user_answer: this.getMicContent.toLowerCase(),
+        session_id: "123456789",
+        language_code: "en",
+      };
+      let JOSN_LESE_detect = JSON.stringify(LESE_detect);
+      this.axios
+        .post("https://sels.nkfust.edu.tw/LESE_detect", JOSN_LESE_detect)
+        .then((response) => {
+          this.Level = response.data.data.level;
+          this.correct = response.data.data.true_count;
+          this.incorrect = response.data.data.fail_count;
+          this.giveBackContent = response.data.data.Answer.FulfillmentText;
+          this.LESE_vef = response.data.data.vef;
+          if (
+            response.data.data.ErrorWord.length !== 0 &&
+            this.listenLang !== "zh-TW"
+          ) {
+            this.chatLogsSent(
+              "chatbot",
+              "Mistake : " + response.data.data.ErrorWord
+            );
+          }
+          this.chatLogsSent("chatbot", this.giveBackContent); // 呼叫回饋句
+          this.chatbotSpeech(this.giveBackContent); // 播放回饋句
+          this.giveBackSentence = true;
+          this.Synthesis.onend = () => {
+            if (this.giveBackSentence === true) this.getSent(this.Level);
+          };
+        });
+      // }
     },
-    deletelocalStorage() {
-      this.LevelText = "A1";
-      this.userLevel = 1;
-      this.true_count = 0;
-      this.fail_count = 0;
-    },
+    //麥克風開始
     micStart() {
-      // initialisation of voicereco
+      this.getMicContent = "";
       this.micBtn = !this.micBtn;
-      this.recognition.lang = this.lang_;
+      this.recognition.lang = this.listenLang;
       this.recognition.interimResults = true;
 
       // event current voice reco word
@@ -387,31 +278,20 @@ export default {
           .map((result) => result[0])
           .map((result) => result.transcript)
           .join("");
-        this.runtimeTranscription_ = text;
+        this.getMicContent = text;
       });
-
-      // end of transcription
-      // this.recognition.addEventListener("end", () => {});
       this.recognition.start();
     },
+    //麥克風結束
     micStop() {
       this.recognition.stop();
       this.micBtn = !this.micBtn;
-      console.log("stop record");
-      this.user_answer = this.runtimeTranscription_;
-      this.checkUserInput(this.runtimeTranscription_);
-      this.chatUserSent();
-    },
-    // 更改模式
-    modeChange() {
-      this.isShowMode = !this.isShowMode;
-      this.isShowMode === false
-        ? (this.lang_ = "zh-TW")
-        : (this.lang_ = "en-US");
+      if ((this.listenLang = "zh-TW")) {
+        this.chatLogsSent("chatbot", "Answer : " + this.EnglishchatbotQuestion);
+      }
+      this.checkUserSent(this.getMicContent);
+      this.chatLogsSent("user", this.getMicContent);
     },
   },
 };
-window.speechSynthesis.cancel(); //每次重新整理視窗取消上次撥放中的語音
 </script>
-
-<style></style>

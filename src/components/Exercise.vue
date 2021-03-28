@@ -2,7 +2,7 @@
   <div class="showoff col">
     <div class="chatbox">
       <div class="chatlogs" ref="chatLogs">
-        <div v-for="item in message">
+        <div v-for="item in message" :key="item">
           <div v-if="item.userName == 'chatbot'">
             <div class="chat chatbot">
               <p

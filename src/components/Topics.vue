@@ -26,11 +26,12 @@
               根據不同的Classify產生不同的細項分類，點選進入該細項分類的句子。
             </span>
             <li
-              @click="getSentTopics(item)"
-              v-for="item in rightList"
+              v-for="(item, index) in rightList[0]"
               :key="item"
+              @click="getSentTopics(rightList[0][index])"
             >
-              {{ item }}
+              {{ rightList[0][index] }} (全部:{{ rightList[1][index] }} 已處理過
+              :{{ rightList[2][index] }} )
             </li>
           </ol>
           <ol v-show="rightSentisShow">
@@ -80,23 +81,24 @@ export default {
       DeatilsSimilarity: null,
     };
   },
-  mounted: {
-    test() {
+  mounted: function () {
+    // let getSentCount = new FormData();
+    // getSentCount.set("Source", "all");
+    // this.axios
+    //   .post("https://sels.nkfust.edu.tw/getSentCount", getSentCount)
+    //   .then((response) => {
+    //     console.log(response.data.data.Topic);
+    //   });
+  },
+  methods: {
+    topicListHandler() {
       let getSentCount = new FormData();
       getSentCount.set("Source", "all");
       this.axios
         .post("https://sels.nkfust.edu.tw/getSentCount", getSentCount)
         .then((response) => {
           console.log(response.data.data.Topic);
-        });
-    },
-  },
-  methods: {
-    topicListHandler() {
-      this.axios
-        .post("https://sels.nkfust.edu.tw/getTopics")
-        .then((response) => {
-          this.rightList = response.data.topics;
+          this.rightList = response.data.data.Topic;
           this.rightListisShow = true;
           this.rightSentisShow = false;
           this.rightDeatilsisShow = false;
@@ -105,12 +107,19 @@ export default {
         });
     },
     levelListHandler() {
-      this.rightList = ["A1", "A2", "B1", "B2", "C1", "C2"];
-      this.rightListisShow = true;
-      this.rightSentisShow = false;
-      this.rightDeatilsisShow = false;
-      this.isLevel = true;
-      this.currentList = "List";
+      let getSentCount = new FormData();
+      getSentCount.set("Source", "all");
+      this.axios
+        .post("https://sels.nkfust.edu.tw/getSentCount", getSentCount)
+        .then((response) => {
+          console.log(response.data.data.level);
+          this.rightList = response.data.data.level;
+          this.rightListisShow = true;
+          this.rightSentisShow = false;
+          this.rightDeatilsisShow = false;
+          this.isLevel = true;
+          this.currentList = "Level";
+        });
     },
     getSentTopics(value) {
       this.rightSentList = [];
@@ -118,11 +127,10 @@ export default {
       if (this.isLevel === true) {
         let url = "https://sels.nkfust.edu.tw/getSent";
         let getSent = new FormData();
+        console.log(value);
         getSent.set("level", value);
         getSent.set("source", "WordNet");
-
         this.axios.post(url, getSent).then((response) => {
-          console.log(response.data);
           this.rightSentList = Object.keys(response.data.Content).map((key) => [
             response.data.Id[key],
             response.data.Content[key],
@@ -139,7 +147,6 @@ export default {
         console.log(getSentbyTopic);
         let url = "https://sels.nkfust.edu.tw/getSentbyTopic";
         this.axios.post(url, getSentbyTopic).then((response) => {
-          console.log(response.data);
           this.rightSentList = Object.keys(response.data.Content).map((key) => [
             response.data.Id[key],
             response.data.Content[key],

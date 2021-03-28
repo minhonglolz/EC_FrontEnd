@@ -22,8 +22,3 @@ export default {
   methods: {},
 };
 </script>
-<style>
-/* @import "bootstrap";
-@import "../assets/css/style.css";
-@import "../assets/css/chatbot.css"; */
-</style>

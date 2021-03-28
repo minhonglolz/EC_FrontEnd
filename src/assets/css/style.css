@@ -1,73 +1,71 @@
 * {
-    font-family: "Founders Grotesk", Helvetica, Arial, sans-serif, "黑體-繁", "微軟正黑體", sans-serif;
-    outline: none !important;
-    box-sizing: border-box;
+  font-family: "Founders Grotesk", Helvetica, Arial, sans-serif, "黑體-繁",
+    "微軟正黑體", sans-serif;
+  outline: none !important;
+  box-sizing: border-box;
 }
 
 body {
-    font-size: calc(14px + (22 - 14) * ((100vw - 300px) / (1600 - 300)));
+  font-size: calc(14px + (22 - 14) * ((100vw - 300px) / (1600 - 300)));
 }
-
 
 /* nav */
 
 nav {
-    width: 100%;
-    height: 60px;
-    background-color: #0984e3;
+  width: 100%;
+  height: 60px;
+  background-color: #0984e3;
 }
 
 nav ul {
-    margin: 0;
-    height: 100%;
-    display: flex;
-    list-style: none;
-    justify-content: flex-end;
-    align-items: center;
-    padding-right: 80px;
+  margin: 0;
+  height: 100%;
+  display: flex;
+  list-style: none;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 80px;
 }
 
 nav ul li {
-    cursor: pointer;
-    color: rgba(255, 255, 255, 0.7);
-    padding: 0 15px;
-    transition: 0.3s;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 0 15px;
+  transition: 0.3s;
 }
 
 nav ul li:hover {
-    color: #fff;
+  color: #fff;
 }
 
 .subItem {
-    color: rgba(65, 65, 65) !important;
-    text-shadow: none;
-    padding: 0.8rem 0 0 3rem !important;
+  color: rgba(65, 65, 65) !important;
+  text-shadow: none;
+  padding: 0.8rem 0 0 3rem !important;
 }
-
 
 /* ------ */
 
 .appContent {
-    width: 100vw;
-    height: calc(100% - 60px) !important;
+  width: 100vw;
+  height: calc(100% - 60px) !important;
 }
 
 .loadingTime {
-    position: absolute;
-    top: 0;
-    left: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .router-link-exact-active {
-    color: rgba(65, 65, 65) !important;
-    text-shadow: 0 0 6px rgba(65, 65, 65, 0.4);
+  color: rgba(65, 65, 65) !important;
+  text-shadow: 0 0 6px rgba(65, 65, 65, 0.4);
 }
 
 .container-fluid {
-    padding: 0;
-    height: 100vh;
+  padding: 0;
+  height: 100vh;
 }
-
 
 /* .loadingTime {
     position: fixed;
@@ -78,495 +76,500 @@ nav ul li:hover {
 } */
 
 .bookcontainer {
-    max-width: 30%;
-    min-width: 270px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  max-width: 30%;
+  min-width: 270px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .book {
-    width: 80%;
-    max-width: 400px;
+  width: 80%;
+  max-width: 400px;
 }
 
 .bookmark {
-    position: absolute;
-    left: 33%;
-    top: 5%;
-    /* transform: translateX(-50%); */
-    display: flex;
+  position: absolute;
+  left: 33%;
+  top: 5%;
+  /* transform: translateX(-50%); */
+  display: flex;
 }
 
 .bookmark-circle {
-    font-weight: 700;
-    height: 40px;
-    width: 40px;
-    border: 2px solid #000;
-    border-radius: 30px;
-    text-align: center;
-    line-height: 38px;
+  font-weight: 700;
+  height: 40px;
+  width: 40px;
+  border: 2px solid #000;
+  border-radius: 30px;
+  text-align: center;
+  line-height: 38px;
 }
 
 .bookmark-text {
-    font-weight: 700;
-    margin-left: 15px;
-    height: 40px;
-    line-height: 40px;
-    font-size: calc(14px + (16 - 12) * ((100vw - 300px) / (1600 - 300)));
+  font-weight: 700;
+  margin-left: 15px;
+  height: 40px;
+  line-height: 40px;
+  font-size: calc(14px + (16 - 12) * ((100vw - 300px) / (1600 - 300)));
 }
 
 .watchmark {
-    z-index: -1;
-    position: absolute;
-    left: 50%;
-    top: 75%;
-    transform: translate(-50%, -50%);
-    color: #e4e4e4;
-    font-weight: 500;
-    -webkit-text-stroke-width: 1.5px;
-    -webkit-text-fill-color: transparent;
-    opacity: 1;
-    font-size: calc(180px + 40 * (100vw - 1024px) / 416);
-    line-height: calc(180px + 40 * (100vw - 1024px) / 416);
+  z-index: -1;
+  position: absolute;
+  left: 50%;
+  top: 75%;
+  transform: translate(-50%, -50%);
+  color: #e4e4e4;
+  font-weight: 500;
+  -webkit-text-stroke-width: 1.5px;
+  -webkit-text-fill-color: transparent;
+  opacity: 1;
+  font-size: calc(180px + 40 * (100vw - 1024px) / 416);
+  line-height: calc(180px + 40 * (100vw - 1024px) / 416);
 }
 
 .navbar {
-    max-width: 28.6%;
-    min-width: 270px;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-self: center;
+  max-width: 28.6%;
+  min-width: 270px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-self: center;
 }
 
 .navbar ul {
-    width: 100%;
-    text-align: center;
-    padding: 0;
-    list-style: none;
+  width: 100%;
+  text-align: center;
+  padding: 0;
+  list-style: none;
 }
 
 .navbar li {
-    padding-top: 1.5rem;
+  padding-top: 1.5rem;
 }
 
 .navbar li a {
-    /* font-size: calc(1vw + 10px); */
-    display: block;
-    color: rgba(65, 65, 65, 0.5);
-    text-decoration: none;
-    transition: 0.3s;
+  /* font-size: calc(1vw + 10px); */
+  display: block;
+  color: rgba(65, 65, 65, 0.5);
+  text-decoration: none;
+  transition: 0.3s;
 }
 
 .navbar li a:hover {
-    color: rgba(65, 65, 65);
+  color: rgba(65, 65, 65);
 }
 
 .Home {
-    width: 70%;
+  width: 70%;
 }
 
 .showoff {
-    height: 100%;
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    /* align-items: center; */
+  height: 100%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
 }
 
 .showoff h1 {
-    /* font-size: calc(2vw + 16px); */
-    margin-bottom: 20px;
+  /* font-size: calc(2vw + 16px); */
+  margin-bottom: 20px;
 }
 
 .showoff span {
-    /* font-size: calc(1vw + 8px); */
-    line-height: 48px;
+  /* font-size: calc(1vw + 8px); */
+  line-height: 48px;
 }
 
 .introduction {
-    display: none;
+  display: none;
 }
-
 
 /* translate */
 
 .translatebox .inputbox {
-    height: 42%;
-    padding-top: 10%;
+  height: 42%;
+  padding-top: 10%;
 }
 
 .outputbox textarea,
 .inputbox textarea {
-    height: 100%;
-    text-align: center;
-    width: 100%;
-    border: none;
-    background: rgb(252, 252, 252);
-    resize: none;
-    overflow-x: hidden;
+  height: 100%;
+  text-align: center;
+  width: 100%;
+  border: none;
+  background: rgb(252, 252, 252);
+  resize: none;
+  overflow-x: hidden;
 }
 
 .outputbox textarea {
-    border-top: 0.5px solid #eee;
-    padding-top: 20px;
+  border-top: 0.5px solid #eee;
+  padding-top: 20px;
 }
 
 .translatebox .outputbox {
-    height: 42%;
+  height: 42%;
 }
 
 .exchangebox,
 .searchbox {
-    text-align: center;
-    height: 6%;
+  text-align: center;
+  height: 6%;
 }
 
 .exchangebox button {
-    border: none;
-    background: none;
-    transform: rotate(90deg);
+  border: none;
+  background: none;
+  transform: rotate(90deg);
 }
 
 .exchangebox span {
-    font-size: calc(12px + (16 - 12) * ((100vw - 300px) / (1600 - 300)));
+  font-size: calc(12px + (16 - 12) * ((100vw - 300px) / (1600 - 300)));
 }
 
 .exchangebox i {
-    color: #b0b0b0;
-    transform: rotate(90deg);
-    font-size: 14px;
+  color: #b0b0b0;
+  transform: rotate(90deg);
+  font-size: 14px;
 }
 
 .closeBtn {
-    top: 10%;
-    right: 0;
-    margin-right: 10px;
-    outline: none;
-    position: absolute;
-    border: none;
-    background: none;
-    color: #9c9c9c;
+  top: 10%;
+  right: 0;
+  margin-right: 10px;
+  outline: none;
+  position: absolute;
+  border: none;
+  background: none;
+  color: #9c9c9c;
 }
 
 .searchbox button {
-    border-radius: 5px;
-    background-color: #0984e3;
-    color: #fff;
-    border: none;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-    outline: none;
+  border-radius: 5px;
+  background-color: #0984e3;
+  color: #fff;
+  border: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  outline: none;
 }
 
 .searchbox i {
-    font-size: 14px;
-    padding-right: 5px;
+  font-size: 14px;
+  padding-right: 5px;
 }
 
 .micbox {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 10%;
 }
 
 .micbox button {
-    background: none;
-    border: none;
-    border-radius: 50%;
-    height: 40px;
-    width: 40px;
-    background-color: #fff;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-    outline: none;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  outline: none;
 }
 
 .micStart {
-    color: #0984e3;
+  color: #0984e3;
 }
 
 .micStop {
-    color: #ff0000;
+  color: #ff0000;
 }
-
 
 /* vocabulary */
 
 .inputbox {
-    position: relative;
+  position: relative;
 }
 
 .vocabularybox .inputbox {
-    padding-top: 10%;
+  padding-top: 10%;
 }
 
 .vocabularybox .outputbox {
-    overflow-y: scroll;
-    overflow-x: scroll;
-    height: 75%;
-    padding: 15px;
+  overflow-y: scroll;
+  overflow-x: scroll;
+  height: 75%;
+  padding: 15px;
 }
 
 .vocabularyOutput {
-    color: #484848;
-    padding-bottom: 10px;
-    border-bottom: 0.5px solid #e4e4e4;
+  color: #484848;
+  padding-bottom: 10px;
+  border-bottom: 0.5px solid #e4e4e4;
 }
 
 .vocabularyOutput h4,
 .vocabularyOutput h5 {
-    font-weight: 700;
+  font-weight: 700;
 }
 
 .vocabularyOutput h5,
 .vocabularyOutput h6 {
-    font-style: italic;
+  font-style: italic;
 }
 
 .vocabularyOutput .level,
 .otherPOS h4 {
-    margin: 20px 0 8px 0;
+  margin: 20px 0 8px 0;
 }
 
 .otherPOS span {
-    font-size: 14px;
-    width: 50px;
-    padding: 0 6px;
-    color: #fff;
-    text-align: center;
-    background-color: rgb(37, 53, 100);
-    border-radius: 50px;
+  font-size: 14px;
+  width: 50px;
+  padding: 0 6px;
+  color: #fff;
+  text-align: center;
+  background-color: rgb(37, 53, 100);
+  border-radius: 50px;
 }
 
 .otherPOS span {
-    font-size: 16px;
-    width: auto;
-    line-height: inherit;
-    display: inline-block;
-    color: #fff;
-    border-radius: 50px;
-    padding: 3px 8px;
-    margin: 4px;
-    background-color: #0984e3;
+  font-size: 16px;
+  width: auto;
+  line-height: inherit;
+  display: inline-block;
+  color: #fff;
+  border-radius: 50px;
+  padding: 3px 8px;
+  margin: 4px;
+  background-color: #0984e3;
 }
 
 .otherPOS .explanation {
-    border-bottom: 1px solid #ddd;
-    padding: 12px 4px;
+  border-bottom: 1px solid #ddd;
+  padding: 12px 4px;
 }
-
 
 /* Sentence */
 
 .prompt {
-    width: 80%;
-    max-width: 1000px;
-    min-width: 390px;
-    margin: 15px 60px 0 30px;
-    text-align: right;
+  width: 80%;
+  max-width: 1000px;
+  min-width: 390px;
+  margin: 15px 60px 0 30px;
+  text-align: right;
 }
 
 .prompt p {
-    margin-bottom: 10px;
-    display: inline-block;
+  margin-bottom: 10px;
+  display: inline-block;
 }
 
 .SentenceBtnBar {
-    width: 80%;
-    max-width: 1000px;
-    min-width: 390px;
-    padding: 10px;
-    margin: 15px 60px 0 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 80%;
+  max-width: 1000px;
+  min-width: 390px;
+  padding: 10px;
+  margin: 15px 60px 0 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .SentenceBtnBar button {
-    outline: none;
-    background: none;
-    border: none;
-    margin: 0 20px;
+  outline: none;
+  background: none;
+  border: none;
+  margin: 0 20px;
 }
 
 .SentenceBtnBar button i {
-    font-size: calc(30px + (22 - 14) * ((100vw - 300px) / (1600 - 300)));
+  font-size: calc(30px + (22 - 14) * ((100vw - 300px) / (1600 - 300)));
 }
 
 .SentenceBtnBar p {
-    margin: 0;
-    height: calc(30px + (22 - 14) * ((100vw - 300px) / (1600 - 300)));
-    line-height: calc(30px + (22 - 14) * ((100vw - 300px) / (1600 - 300)));
+  margin: 0;
+  height: calc(30px + (22 - 14) * ((100vw - 300px) / (1600 - 300)));
+  line-height: calc(30px + (22 - 14) * ((100vw - 300px) / (1600 - 300)));
 }
 
 .sentence {
-    cursor: pointer;
-    padding: 0 10px;
-    display: flex;
-    height: 100%;
-    /* margin: 10%; */
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+  cursor: pointer;
+  padding: 0 10px;
+  display: flex;
+  height: 100%;
+  /* margin: 10%; */
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .sentence h4 {
-    padding: 10px;
+  padding: 10px;
 }
 
 .SpeakerBtn {
-    cursor: pointer;
-    align-items: flex-end;
-    color: #000;
-    top: 0;
-    right: 0;
+  cursor: pointer;
+  align-items: flex-end;
+  color: #000;
+  top: 0;
+  right: 0;
 }
 
 .fade-enter-active,
 .fade-leave-active {
-    transition: opacity 0.5s;
+  transition: opacity 0.5s;
 }
 
 .fade-enter,
 .fade-leave-to
-/* .fade-leave-active below version 2.1.8 */
-
-{
-    opacity: 0;
+/* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
-
 
 /* topicbox  */
 
 .topicbox .leftList {
-    width: 20%;
-    height: 100%;
+  width: 20%;
+  height: 100%;
 }
 
 .topicbox ul {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 .topicbox ol,
 .topicbox ul {
-    padding-top: 30px !important;
-    text-align: center;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-self: center;
-    box-shadow: 3px 0px 10px -4px rgba(0, 0, 0, 0.3);
+  padding-top: 30px !important;
+  text-align: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  box-shadow: 3px 0px 10px -4px rgba(0, 0, 0, 0.3);
 }
 
 .topicbox ol li,
 .topicbox ul li {
-    cursor: pointer;
-    font-size: calc(115px + 40 * (1vw - 1024px) / 416);
-    padding: 7px 0;
-    color: rgba(65, 65, 65, 0.6);
-    transition: 0.3s;
+  cursor: pointer;
+  font-size: calc(115px + 40 * (1vw - 1024px) / 416);
+  padding: 7px 0;
+  color: rgba(65, 65, 65, 0.6);
+  transition: 0.3s;
 }
 
 .topicbox ol li:hover,
 .topicbox ul li:hover {
-    color: rgba(65, 65, 65);
+  color: rgba(65, 65, 65);
 }
 
 .topicbox .rightList {
-    width: 80%;
-    height: 100%;
+  width: 80%;
+  height: 100%;
 }
 
 .topicbox .rightList .rightListNav {
-    height: 38px;
+  height: 38px;
 }
 
 .topicbox .rightListConetnt {
-    height: calc(100% - 38px);
-    box-shadow: 3px 0px 10px -4px rgba(0, 0, 0, 0.3);
+  height: calc(100% - 38px);
+  box-shadow: 3px 0px 10px -4px rgba(0, 0, 0, 0.3);
 }
 
 .rightListConetnt span {
-    text-align: left;
-    color: rgba(65, 65, 65, 0.6);
-    font-size: calc(115px + 40 * (1vw - 1024px) / 416);
+  text-align: left;
+  color: rgba(65, 65, 65, 0.6);
+  font-size: calc(115px + 40 * (1vw - 1024px) / 416);
 }
 
 .rightListNav button {
-    height: 100%;
-    color: rgba(65, 65, 65, 0.6);
-    padding: 5px 0 0 15px;
-    background: none;
-    border: none;
-    transition: 0.3s;
+  height: 100%;
+  color: rgba(65, 65, 65, 0.6);
+  padding: 5px 0 0 15px;
+  background: none;
+  border: none;
+  transition: 0.3s;
 }
 
 .rightListNav button:hover {
-    color: rgba(65, 65, 65);
+  color: rgba(65, 65, 65);
 }
 
 .topicbox .rightList ol {
-    overflow-y: scroll;
+  overflow-y: scroll;
+  padding-left: 4rem;
 }
 
 .topicbox .rightList .sentDeatils {
-    padding: 30px 0 20px 25px;
+  padding: 30px 0 20px 25px;
 }
 
 .topicbox .rightList ol li {
-    cursor: pointer;
-    text-align: left;
-    padding: 10px 0 10px 5px;
+  cursor: pointer;
+  text-align: left;
+  padding: 10px 0 10px 5px;
 }
 
 .topicbox .rightList .sentDeatils h6 {
-    font-size: calc(120px + 40 * (1vw - 1024px) / 416);
-    margin-bottom: 10px;
+  font-size: calc(120px + 40 * (1vw - 1024px) / 416);
+  margin-bottom: 10px;
 }
 
 .t .sentDeatils p {
-    font-size: calc(115px + 40 * (1vw - 1024px) / 416);
-    margin-bottom: 10px;
+  font-size: calc(115px + 40 * (1vw - 1024px) / 416);
+  margin-bottom: 10px;
 }
 
-
 /* Exercise */
-
+.stopButton {
+  width: 100%;
+  float: right;
+  outline: none;
+  padding: 10px 0;
+  /* font-size: 30px; */
+  background-color: #ff0000;
+  color: #fff;
+  border: none;
+  margin: 10px 0;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
 .startButton {
-    float: right;
-    outline: none;
-    padding: 5px 10px;
-    /* font-size: 30px; */
-    background-color: #1add31;
-    color: #fff;
-    border: none;
-    margin: 10px 0;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background 0.3s;
+  width: 100%;
+  float: right;
+  outline: none;
+  padding: 10px 0;
+  /* font-size: 30px; */
+  background-color: #1add31;
+  color: #fff;
+  border: none;
+  margin: 10px 0;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
 .startButtonDisable {
-    background-color: #ccc;
+  background-color: #ccc !important;
 }
-
 
 /* vue fade */
 
 .fade-enter-active,
 .fade-leave-active {
-    height: auto;
-    transition: height 0.5s;
+  height: auto;
+  transition: height 0.5s;
 }
 
 .fade-enter,
 .fade-leave-to
-/* .fade-leave-active below version 2.1.8 */
-
-{
-    height: 0px;
-    /* opacity: 0; */
+/* .fade-leave-active below version 2.1.8 */ {
+  height: 0px;
+  /* opacity: 0; */
 }

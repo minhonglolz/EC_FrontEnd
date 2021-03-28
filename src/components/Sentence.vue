@@ -7,10 +7,12 @@
     <div class="sentencebox vld-parent" ref="loadingContainer">
       <div class="sentence" @click.self="show = !show">
         <transition name="fade" mode="out-in">
-          <h4 key="Eng" v-if="show">
-            {{ SentencesList[CurrentSentence] }}
-          </h4>
-          <h4 key="Chi" v-else="!show">{{ ChiSentence }}</h4>
+          <template>
+            <h4 key="Eng" v-if="show">
+              {{ SentencesList[CurrentSentence] }}
+            </h4>
+            <h4 key="Chi" v-else>{{ ChiSentence }}</h4>
+          </template>
         </transition>
       </div>
     </div>
