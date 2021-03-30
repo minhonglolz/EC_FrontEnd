@@ -2,7 +2,7 @@
   <div class="showoff col">
     <div class="chatbox">
       <div class="chatlogs" ref="chatLogs">
-        <div v-for="item in message" :key="item">
+        <div v-for="(item, index) in message" :key="index">
           <div v-if="item.userName == 'chatbot'">
             <div class="chat chatbot">
               <p
@@ -115,20 +115,20 @@ export default {
       this.ExerciseStart = true;
     },
     ExerciseGetSent() {
-      var n = 3;
-      while (n < 27) {
+      let n = 3;
+      while (n < 18) {
+        console.log(n);
         let getSentbyChar = new FormData();
         getSentbyChar.set("Char", n);
         getSentbyChar.set("Level", this.userLevel);
         this.axios
           .post("https://sels.nkfust.edu.tw/getSentbyChar", getSentbyChar)
           .then((response) => {
-            console.log(response.data.Content[0]);
             this.ExerciseArray.push(
               response.data.Content[0],
               response.data.Content[1]
             );
-            if (this.ExerciseArray.length >= 16) {
+            if (this.ExerciseArray.length >= 10) {
               this.ExerciseArray.sort(function (a, b) {
                 return a.length - b.length;
               });

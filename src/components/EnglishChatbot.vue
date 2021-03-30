@@ -101,19 +101,6 @@ export default {
           userName: "chatbot",
           content: "Please choose a mode",
         },
-        // {
-        //   userName: "chatbot",
-        //   content: `
-        //   To start talking: Click the blue microphone icon and then speak into your microphone.`,
-        // },
-        // {
-        //   userName: "chatbot",
-        //   content: `To stop talking: Click the red microphone icon.`,
-        // },
-        // {
-        //   userName: "chatbot",
-        //   content: "Press start to practice the sentences produced",
-        // },
       ],
       modeList: ["聽英說英", "聽中說英", "聽英說中"],
       mode: null,
@@ -154,6 +141,8 @@ export default {
   methods: {
     //語音機器人開始
     ListenSpkerStartHandler() {
+      this.correct = 0;
+      this.incorrect = 0;
       this.ListenSpkerStart = true;
       this.message = [];
       this.getSent(this.Level);
@@ -256,8 +245,12 @@ export default {
               "Mistake : " + response.data.data.ErrorWord
             );
           }
+          this.listenLang = "en-US";
           this.chatLogsSent("chatbot", this.giveBackContent); // 呼叫回饋句
-          this.chatbotSpeech(this.giveBackContent); // 播放回饋句
+          this.chatbotSpeech(this.giveBackContent); // 播放回饋句;
+          if (this.mode === "聽中說英") {
+            this.listenLang = "zh-TW";
+          }
           this.giveBackSentence = true;
           this.Synthesis.onend = () => {
             if (this.giveBackSentence === true) this.getSent(this.Level);
@@ -284,13 +277,18 @@ export default {
     },
     //麥克風結束
     micStop() {
+      if (this.getMicContent != "") {
+        if (this.listenLang === "zh-TW") {
+          this.chatLogsSent(
+            "chatbot",
+            "Answer : " + this.EnglishchatbotQuestion
+          );
+        }
+        this.checkUserSent(this.getMicContent);
+        this.chatLogsSent("user", this.getMicContent);
+      }
       this.recognition.stop();
       this.micBtn = !this.micBtn;
-      if ((this.listenLang = "zh-TW")) {
-        this.chatLogsSent("chatbot", "Answer : " + this.EnglishchatbotQuestion);
-      }
-      this.checkUserSent(this.getMicContent);
-      this.chatLogsSent("user", this.getMicContent);
     },
   },
 };
