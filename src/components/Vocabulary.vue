@@ -4,7 +4,7 @@
       <div class="inputbox">
         <textarea
           v-model="inputbox"
-          placeholder="Enter or paste vocbulary here"
+          placeholder="Enter or paste vocbulary here."
         >
         </textarea>
       </div>
@@ -102,6 +102,7 @@ export default {
     };
   },
   methods: {
+    //單字api
     getVocabulary() {
       let loader = this.$loading.show({
         // Optional parameters

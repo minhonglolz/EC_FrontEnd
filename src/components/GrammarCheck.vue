@@ -5,19 +5,12 @@
         <textarea
           @keydown="getTranslateDebounced"
           v-model.trim="inputbox"
-          placeholder="Enter or paste text here."
+          placeholder="Enter or paste sentence here."
         >
         </textarea>
         <button @click="clearInput" v-show="isShow" class="closeBtn">
           <i class="fas fa-times"></i>
         </button>
-      </div>
-      <div class="exchangebox">
-        <span>{{ leftLang }}</span>
-        <button @click="TramslateChange">
-          <i class="fas fa-exchange-alt"></i>
-        </button>
-        <span>{{ rightLang }}</span>
       </div>
       <div class="outputbox">
         <textarea v-model="outputbox" readonly></textarea>
@@ -36,73 +29,54 @@
 
 <script>
 export default {
-  name: "Translate",
+  name: "GrammarCheck",
+  //資料狀態列
   data() {
     return {
-      isShow: false, //顯示清除按鈕
-      micBtn: true, //顯示麥克風按鈕
-      leftLang: "英文", //顯示輸入語言
-      rightLang: "中文", //顯示翻譯語言
-      inputbox: "", //textarea欄位
-      outputbox: "", //textare輸出欄位
-      EngFormData: new FormData(), //sent_translate API呼叫
-      recognition: new window.webkitSpeechRecognition(), //語音辨識API
-      runtimeTranscription_: "", //語音辨識輸出結果
+      isShow: false, //清空文字按鈕
+      micBtn: true, //麥克風按鈕
+      inputbox: "",
+      outputbox: "",
+      EngFormData: new FormData(), //checkSentGrammar() api
+      recognition: new window.webkitSpeechRecognition(), //語音辨識api
+      runtimeTranscription_: "", //語音辨識產出結果
     };
   },
+  // _.debounce用意防止過多次的api請求 https://lodash.com/ 文件參考
   created() {
-    // _.debounce用意防止過多次的api請求 https://lodash.com/ 文件參考
     this.getTranslateDebounced = _.debounce(this.getTranslate, 400);
   },
   methods: {
     getTranslateDebounced() {},
 
-    //清除輸入、輸出area
+    //清除textarea
     clearInput() {
       this.inputbox = "";
       this.outputbox = "";
       this.isShow = false;
     },
 
-    //翻譯
+    //文法檢查api
     getTranslate() {
       if (this.inputbox !== "") {
         this.isShow = true;
       } else {
         this.isShow = false;
       }
-      this.EngFormData.set("sent_input", this.inputbox);
+      this.EngFormData.set("sent-in", this.inputbox);
       this.axios
-        .post("https://sels.nkfust.edu.tw/sent_translate", this.EngFormData)
+        .post("https://sels.nkfust.edu.tw/checkSentGrammar", this.EngFormData)
         .then((response) => {
-          console.log(response.data);
-          if (
-            response.data.translate !== "Sorry,We can not detect this language"
-          ) {
-            this.outputbox = response.data.translate;
+          let data = response.data.data;
+          if (data.checkedSent === this.inputbox) {
+            this.outputbox = "No error !";
           } else {
-            this.outputbox = "";
-          }
-          if (response.data.lang === "中文") {
-            this.leftLang = "中文";
-            this.rightLang = "英文";
-          } else if (response.data.lang === "英文") {
-            this.leftLang = "英文";
-            this.rightLang = "中文";
+            this.outputbox = data.checkedSent;
           }
         });
     },
 
-    //轉換翻譯語言 英文<-->中文
-    TramslateChange() {
-      let temp = this.leftLang;
-      this.leftLang = this.rightLang;
-      this.rightLang = temp;
-      this.inputbox = this.outputbox;
-      this.getTranslate();
-    },
-
-    //麥克風開始
+    //麥克風開始監測
     micStart() {
       // initialisation of voicereco
       this.micBtn = !this.micBtn;
@@ -120,14 +94,13 @@ export default {
       this.recognition.start();
     },
 
-    //麥克風停止
+    //麥克風停止監測
     micStop() {
       this.recognition.stop();
       this.micBtn = !this.micBtn;
       this.isShow = true;
       this.inputbox = this.runtimeTranscription_;
       this.getTranslate();
-
       console.log("stop record");
     },
   },

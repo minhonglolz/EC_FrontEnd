@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <nav>
-      <ul>
+      <!-- <ul>
         <li
           v-for="(items, index) in classifyList"
           :key="index"
@@ -9,7 +9,7 @@
         >
           {{ items.classify }}
         </li>
-      </ul>
+      </ul> -->
     </nav>
     <div class="loadingTime"></div>
     <div class="row appContent">
@@ -126,6 +126,14 @@ export default {
           classify: "Learn",
         },
         {
+          watchmark: "G",
+          url: "/GrammarCheck",
+          title: "Grammar Check",
+          content: "幫助你檢查文法及單字。",
+          sub: [],
+          classify: "Learn",
+        },
+        {
           watchmark: "V",
           url: "/Vocabulary",
           title: "Vocabulary",
@@ -135,26 +143,42 @@ export default {
           classify: "Learn",
         },
         {
-          watchmark: "S",
-          url: "/",
-          title: "Sentence",
-          content: `Practice:提供隨機100句句子，可播放語音、翻譯中文<br/>
-          Browsing:可以瀏覽所有已收錄句子，分類為Topics, Level
-          `,
+          watchmark: "P",
+          url: "/Sentence",
+          title: "Practice",
+          content: "提供隨機100句句子，可播放語音、翻譯中文",
+          sub: [],
           classify: "Learn",
-          sub: [
-            {
-              watchmark: "P",
-              url: "/Sentence",
-              title: "Practice",
-            },
-            {
-              watchmark: "B",
-              url: "/Topics",
-              title: "Browsing",
-            },
-          ],
         },
+        {
+          watchmark: "B",
+          url: "/Topics",
+          title: "Browsing",
+          content: "可以瀏覽所有已收錄句子，分類為Topics, Level",
+          sub: [],
+          classify: "Learn",
+        },
+        //   {
+        //     watchmark: "S",
+        //     url: "/",
+        //     title: "Sentence",
+        //     content: `Practice:提供隨機100句句子，可播放語音、翻譯中文<br/>
+        //     Browsing:可以瀏覽所有已收錄句子，分類為Topics, Level
+        //     `,
+        //     classify: "Learn",
+        //     sub: [
+        //       {
+        //         watchmark: "P",
+        //         url: "/Sentence",
+        //         title: "Practice",
+        //       },
+        //       {
+        //         watchmark: "B",
+        //         url: "/Topics",
+        //         title: "Browsing",
+        //       },
+        //     ],
+        //   },
       ],
     };
   },
@@ -162,6 +186,7 @@ export default {
     classifyHandler(value) {
       this.currentClassify = value;
     },
+    //滑入左邊List的時候變換Home的文字
     mousehoverHandload(value) {
       this.nowintroduction.watchmark = this.introduction[value].watchmark;
       this.nowintroduction.title = this.introduction[value].title;

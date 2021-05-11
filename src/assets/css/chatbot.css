@@ -46,10 +46,10 @@
   padding: 0;
 }
 
-.sentencebox:hover {
+/* .sentencebox:hover {
   transform: scale(1.04);
   background-color: rgba(238, 238, 238, 0.4);
-}
+} */
 
 .list {
   max-width: 1000px;

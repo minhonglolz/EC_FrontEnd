@@ -36,19 +36,6 @@
       </div>
       <div class="chatprompt"></div>
       <div class="chat-form">
-        <!-- <textarea
-          v-model="nowInput"
-          id="sentTextarea"
-          v-on:keydown.enter.prevent="chatUserSent(), checkUserInput(nowInput)"
-          >{{ nowInput }}</textarea
-        >
-        <button
-          id="sent-button"
-          class="sent-button model-button"
-          @click="chatUserSent(), checkUserInput(nowInput)"
-        >
-          <i class="fas fa-paper-plane"></i>
-        </button> -->
         <button
           :title="'Voice on'"
           v-show="micBtn"
@@ -88,8 +75,8 @@ export default {
           Please select the level you want to Exercise`,
         },
       ],
-      levelOption: ["A1", "A2", "B1", "B2", "C1", "C2"],
-      isdisabled: true,
+      levelOption: ["A1", "A2", "B1", "B2", "C1", "C2"], //Level等級
+      isdisabled: true, //開始按鈕是否顯示
       ExerciseStart: false, //是否開始語音測試
       micBtn: true, //Mic icon color
       synth: window.speechSynthesis, //機器人語音
@@ -103,11 +90,9 @@ export default {
       currentSent: 0,
       correct: 0, //正確數量
       incorrect: 0, //錯誤數量
-      getSentbyLevel: new FormData(),
-      runtimeTranscription_: "",
-      transcription_: [],
-      lang_: "en-US",
-      isShowMode: true,
+      runtimeTranscription_: "", //語音辨識產出結果
+      transcription_: [], //對話框顯示對話陣列
+      lang_: "en-US", //語音辨識語言
     };
   },
   methods: {
@@ -143,6 +128,7 @@ export default {
       this.chatbotSpeech(this.ExerciseArray[this.currentSent]);
       this.isdisabled = false;
     },
+    //在使用者語音結束後返回回饋句並紀錄正確及錯誤次數
     ExercoseUserInput(sentin) {
       console.log(sentin);
       let LESE_detect = {
@@ -161,7 +147,6 @@ export default {
           console.log(response.data);
           let FulfillmentText = response.data.data.Answer.FulfillmentText;
           // this.chatbotStartInput("Similarity:" + response.data.data.vef);
-          this.lang_ = "en-US"; //必須先改回英文，否則中文會出錯
           this.currentSent++;
           this.ExerciseOutput();
         });
@@ -172,7 +157,7 @@ export default {
         this.$refs.chatLogs.scrollTop = this.$refs.chatLogs.scrollHeight;
       });
     },
-    //push新的句子進陣列
+    //push新的句子進chatbot陣列
     chatbotStartInput(sent) {
       this.message.push({
         userName: "chatbot",
@@ -181,6 +166,7 @@ export default {
       this.scrollTop();
       this.chatbotSpeech("");
     },
+    ////push新的句子進user陣列
     chatUserSent() {
       this.message.push({
         userName: "user",
@@ -197,10 +183,7 @@ export default {
       this.userSpeech.rate = 0.8; //語音速度
       this.synth.speak(this.userSpeech); //播放
     },
-    checkUserInput(input) {
-      if (this.firstChat === true && this.exit === false) {
-      }
-    },
+    //麥克風開始
     micStart() {
       // initialisation of voicereco
       this.micBtn = !this.micBtn;
@@ -217,6 +200,7 @@ export default {
       });
       this.recognition.start();
     },
+    //麥克風停止
     micStop() {
       this.recognition.stop();
       this.micBtn = !this.micBtn;
@@ -225,16 +209,7 @@ export default {
       this.user_answer = this.runtimeTranscription_;
       this.ExercoseUserInput(this.runtimeTranscription_);
     },
-    // 更改模式
-    modeChange() {
-      this.isShowMode = !this.isShowMode;
-      this.isShowMode === false
-        ? (this.lang_ = "zh-TW")
-        : (this.lang_ = "en-US");
-    },
   },
 };
 window.speechSynthesis.cancel(); //每次重新整理視窗取消上次撥放中的語音
 </script>
-
-<style></style>

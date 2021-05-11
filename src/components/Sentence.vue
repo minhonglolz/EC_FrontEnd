@@ -1,11 +1,12 @@
 <template>
   <div class="showoff col">
     <div class="prompt">
-      <i class="fas fa-mouse"></i>
-      <p>點擊卡片切換中文</p>
+      <button @click.self="show = !show" class="sent-button model-button mb-2">
+        <i class="fas fa-mouse"></i> 中/英轉換
+      </button>
     </div>
     <div class="sentencebox vld-parent" ref="loadingContainer">
-      <div class="sentence" @click.self="show = !show">
+      <div class="sentence">
         <transition name="fade" mode="out-in">
           <template>
             <h4 key="Eng" v-if="show">
@@ -54,19 +55,19 @@ export default {
   name: "Sentence",
   data() {
     return {
-      isLoading: false,
-      mode: "out-in",
+      isLoading: false, //Loading畫面是否顯示
+      mode: "out-in", //vue動畫模式
       synth: window.speechSynthesis, //機器人語音
       userSpeech: new window.SpeechSynthesisUtterance(), //機器人語音
-      show: true,
-      isShow: true,
-      SentencesList: [],
-      ChiSentence: "",
-      CurrentSentence: 0,
-      EngFormData: new FormData(),
+      show: true, //切換顯示中文或英文
+      SentencesList: [], //一開始和api拿100句陣列
+      ChiSentence: "", //英文句子翻譯成中文
+      CurrentSentence: 0, //顯示目前句子在第幾句
+      EngFormData: new FormData(), //api
     };
   },
   created() {
+    //文件參考 https://github.com/ankurk91/vue-loading-overlay
     let loader = this.$loading.show({
       // Optional parameters
       canCancel: false,
@@ -96,9 +97,11 @@ export default {
       });
   },
   mounted() {
+    //每次載入時取消語音播放
     window.speechSynthesis.cancel();
   },
   computed: {
+    //檢查按鈕是否顯示
     NextDisableHandler() {
       if (this.CurrentSentence < 99) {
         return (this.NextBtnDisable = false);
@@ -115,12 +118,15 @@ export default {
     },
   },
   methods: {
+    //下一句按鈕
     Nexthandler() {
       this.CurrentSentence += 1;
     },
+    //上一句按鈕
     Previoushandler() {
       this.CurrentSentence -= 1;
     },
+    //語音機器人播放
     SentenceSpeaker() {
       window.speechSynthesis.cancel();
       this.userSpeech.text = this.SentencesList[this.CurrentSentence];
@@ -128,6 +134,7 @@ export default {
       this.userSpeech.rate = 0.6; //語音速度
       this.synth.speak(this.userSpeech); //播放
     },
+    //翻譯api
     TranslateHandler() {
       this.EngFormData.set(
         "sent_input",

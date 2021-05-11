@@ -63,34 +63,29 @@
 
 <script>
 export default {
+  //這頁狀態控制寫得不好別噴
   name: "Topics",
   data() {
     return {
-      rightListisShow: false,
-      rightSentisShow: false,
-      rightDeatilsisShow: false,
-      selectTitle: "",
-      currentList: "List",
-      isLevel: false,
-      rightList: [],
-      rightSentList: [],
-      DeatilsLevel: null,
-      DeatilsContent: null,
-      DeatilsChinese: null,
-      DeatilsLength: null,
-      DeatilsSimilarity: null,
+      rightListisShow: false, //右邊清單列顯示
+      rightSentisShow: false, //右邊句子列顯示
+      rightDeatilsisShow: false, //控制右邊顯示是level還是topic，這邊很糟糕請小心服用
+      selectTitle: "", //顯示目前選擇的是level還是topic
+      currentList: "List", //判斷目前是要顯示List還是Sentence
+      isLevel: false, //判斷api要打向level還是topic
+      rightList: [], //右邊清單列陣列
+      rightSentList: [], //右邊句子列陣列
+
+      //api回傳給個句子的詳細資訊
+      DeatilsLevel: null, //等級
+      DeatilsContent: null, //內容
+      DeatilsChinese: null, //翻譯後的中文
+      DeatilsLength: null, //句子長度
+      DeatilsSimilarity: null, //相似詞句
     };
   },
-  mounted: function () {
-    // let getSentCount = new FormData();
-    // getSentCount.set("Source", "all");
-    // this.axios
-    //   .post("https://sels.nkfust.edu.tw/getSentCount", getSentCount)
-    //   .then((response) => {
-    //     console.log(response.data.data.Topic);
-    //   });
-  },
   methods: {
+    //拿topic句子清單
     topicListHandler() {
       let getSentCount = new FormData();
       getSentCount.set("Source", "all");
@@ -106,6 +101,7 @@ export default {
           this.currentList = "List";
         });
     },
+    //拿level句子清單
     levelListHandler() {
       let getSentCount = new FormData();
       getSentCount.set("Source", "all");
@@ -121,7 +117,9 @@ export default {
           this.currentList = "Level";
         });
     },
+
     getSentTopics(value) {
+      //拿level分類中的句子
       this.rightSentList = [];
       this.selectTitle = value;
       if (this.isLevel === true) {
@@ -142,6 +140,7 @@ export default {
           this.currentList = "Sent";
         });
       } else {
+        //拿topic分類中的句子
         let getSentbyTopic = new FormData();
         getSentbyTopic.set("topic", value);
         console.log(getSentbyTopic);
@@ -159,6 +158,7 @@ export default {
         });
       }
     },
+    //拿到每個句子的詳細資訊
     getSentbyId(key) {
       let getSentById = new FormData();
       getSentById.set("Id", key);
@@ -176,6 +176,7 @@ export default {
           this.currentList = "Deatils";
         });
     },
+    //顯示
     returnHandler() {
       if (this.currentList === "Sent") {
         this.rightListisShow = true;

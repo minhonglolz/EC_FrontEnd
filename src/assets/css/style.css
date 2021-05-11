@@ -218,7 +218,7 @@ nav ul li:hover {
 .exchangebox,
 .searchbox {
   text-align: center;
-  height: 6%;
+  /* height: 6%; */
 }
 
 .exchangebox button {
@@ -397,7 +397,7 @@ nav ul li:hover {
 }
 
 .sentence {
-  cursor: pointer;
+  /* cursor: pointer; */
   padding: 0 10px;
   display: flex;
   height: 100%;
