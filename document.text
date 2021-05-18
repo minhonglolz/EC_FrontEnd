@@ -1,0 +1,18 @@
+首先請詳讀此文件 https://cn.vuejs.org/v2/guide/ 使用版本 vue.js 2.x版，並使用vue-cli 3.x版。
+請遵循MVVM架構操作此專案
+
+所有view檔都在 "src" ，又可細分：
+    1. assets(css, img, js)
+    2. components(存放網頁.vue檔案)
+    3. router(用於設定index.js檔案裡的路由設定)
+    4. main.js(核心檔案，作用於將App.vue與外層的index.html連接)
+    更多詳細的vue-cli架構請參考 https://book.vue.tw/CH3/3-1-vue-cli-introduction.html
+
+
+開啟檔案有兩種方式都是在cmd完成
+    第一種 $ cd [專案名稱]  ->  $ npm run serve (在localhost run網站)
+    第二種 $ vue ui
+        進入ui介面後會有任務裡頭的 start(在localhost run網站)、build(打包網站在dist資料夾裡)
+    更多細節請參考 https://cli.vuejs.org/zh/
+
+關於程式碼function的使用方式都有在每一個function寫上註解了。
