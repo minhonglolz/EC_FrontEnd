@@ -71,8 +71,7 @@ export default {
       message: [
         {
           userName: "chatbot",
-          inputText: `Hello!</br></br>
-          Please select the level you want to Exercise`,
+          inputText: `Hello!Please select the level you want to Exercise`,
         },
       ],
       levelOption: ["A1", "A2", "B1", "B2", "C1", "C2"], //Level等級
