@@ -12,7 +12,7 @@ import Exercise from "../components/Exercise.vue";
 Vue.use(Router);
 export default new Router({
   base: "/EC_FrontEnd",
-  mode: "history",
+  mode: "hash",
   routes: [
     {
       path: "/",
